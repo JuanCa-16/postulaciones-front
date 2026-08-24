@@ -1,0 +1,13 @@
+<div class="inicio-container">
+  <h1>Mis Postulaciones</h1>
+
+  <div class="postulaciones">
+    @if (postulaciones().length > 0) {
+      @for (postulacion of postulaciones(); track postulacion.id) {
+        <app-job-card [postulacion]="postulacion"></app-job-card>
+      }
+    } @else {
+      <p>Cargando postulaciones...</p>
+    }
+  </div>
+</div>

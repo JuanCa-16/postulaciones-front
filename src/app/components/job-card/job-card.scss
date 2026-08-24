@@ -1,0 +1,144 @@
+.jobCard-container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  align-self: stretch;
+
+  border-radius: 4px;
+  background: #f3f3f3;
+
+  overflow: hidden;
+  border: 1px dashed color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 60%);
+
+  .esfera {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    //  transform: translate(-40%, -50%);
+    width: 100%;
+    height: 75%;
+
+    background-color: var(--status-color, var(--primary-color));
+    border-radius: 25%;
+  }
+
+  .info-container {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+
+    align-self: stretch;
+    background: rgba(250, 250, 250, 0.548);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); //safari
+
+    gap: 0;
+    transition: gap 0.4s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(250, 250, 250, 0.548);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+    }
+
+    .info {
+      display: flex;
+      align-items: flex-start;
+      align-content: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      align-self: stretch;
+      flex-wrap: wrap;
+    }
+
+    .puesto {
+      flex: 1 1 120px;
+    }
+
+    .extra {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      align-self: stretch;
+      background: color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 95%);
+      border-radius: 4px;
+      //padding: 5px;
+      //height: fit-content;
+
+      //Para ek despliegue
+      max-height: 0;
+      opacity: 0;
+      padding: 0 5px; /* Sin padding vertical mientras esté cerrado */
+      overflow: hidden;
+      transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        padding 0.4s ease;
+
+      .text {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        align-content: flex-start;
+        align-self: stretch;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        .item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 4px;
+          color: var(--status-color, var(--primary-color));
+
+          &.url {
+            color: var(--status-color, var(--primary-color));
+            a {
+              color: var(--status-color, var(--primary-color));
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+
+    .acciones {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      align-self: stretch;
+      flex-wrap: wrap;
+
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px -5px var(--status-color, var(--primary-color));
+    .info-container {
+      gap: 12px;
+      .extra {
+        max-height: 400px; /* Un valor superior a la altura real de tu contenido */
+        opacity: 1;
+        padding: 5px;
+      }
+
+      .acciones {
+        max-height: 400px; /* Un valor superior a la altura real de tu contenido */
+        opacity: 1;
+      }
+    }
+  }
+}

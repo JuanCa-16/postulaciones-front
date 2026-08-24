@@ -1,0 +1,12 @@
+.inicio-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .postulaciones {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

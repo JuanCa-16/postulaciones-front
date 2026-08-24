@@ -1,0 +1,22 @@
+.tag-component {
+  display: flex;
+  padding: 2px 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  height: fit-content;
+  width: fit-content;
+
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--status-color, var(--primary-color)), var(--mix-color) 80%);
+
+  .indicator {
+    width: 0.6em;
+    aspect-ratio: 1;
+
+    border-radius: 100%;
+    background-color: var(--status-color, var(--primary-color));
+  }
+
+  color: var(--status-color, var(--primary-color));
+}
