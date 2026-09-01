@@ -1,55 +1,59 @@
-<div class="jobCard-container" [style.--status-color]="postulacion.estado.color">
+<div class="jobCard-container" [style.--status-color]="postulacion().estado.color">
   <div class="esfera"></div>
   <div class="info-container">
     <div class="info">
       <div class="puesto">
-        <h4>{{ postulacion.nombreOferta }}</h4>
-        <p>{{ postulacion.nombreEmpresa }}</p>
+        <h4>{{ postulacion().nombreOferta }}</h4>
+        <p>{{ postulacion().nombreEmpresa }}</p>
       </div>
-      <app-tag [estado]="postulacion.estado"></app-tag>
+      <app-tag [estado]="postulacion().estado"></app-tag>
     </div>
     <div class="extra">
       <div class="text">
-        @if (postulacion.paginaAplicacion) {
+        @if (postulacion().paginaAplicacion) {
           <div class="item">
             <app-icon-briefcase></app-icon-briefcase>
-            <p>{{ postulacion.paginaAplicacion }}</p>
+            <p>{{ postulacion().paginaAplicacion }}</p>
           </div>
         }
 
-        @if (postulacion.modalidad) {
+        @if (postulacion().modalidad) {
           <div class="item">
-            @if (postulacion.modalidad === 'REMOTO') {
+            @if (postulacion().modalidad === 'REMOTO') {
               <app-icon-pc></app-icon-pc>
             }
-            @if (postulacion.modalidad === 'HIBRIDO') {
+            @if (postulacion().modalidad === 'HIBRIDO') {
               <app-icon-house></app-icon-house>
             }
-            @if (postulacion.modalidad === 'PRESENCIAL') {
+            @if (postulacion().modalidad === 'PRESENCIAL') {
               <app-icon-building></app-icon-building>
             }
-            <p>{{ postulacion.modalidad | titlecase }}</p>
+            <p>{{ postulacion().modalidad | titlecase }}</p>
           </div>
         }
 
-        @if (postulacion.url) {
+        @if (postulacion().url) {
           <div class="item url">
             <app-icon-url></app-icon-url>
             <p>
-              <a [href]="postulacion.url" target="_blank" rel="noopener noreferrer"> Ver oferta </a>
+              <a [href]="postulacion().url" target="_blank" rel="noopener noreferrer">
+                Ver oferta
+              </a>
             </p>
           </div>
         }
 
         <div class="item">
           <app-icon-date></app-icon-date>
-          <p>{{ postulacion.fecha | date: 'dd/MM/yyyy' }}</p>
+          <p>{{ postulacion().fecha | date: 'dd/MM/yyyy' }}</p>
         </div>
       </div>
     </div>
     <div class="acciones">
       <button type="button" class="btn error">Eliminar</button>
-      <button type="button" class="btn">Editar</button>
+      <button type="button" class="btn" [routerLink]="['/detalles', postulacion().id]">
+        Editar
+      </button>
     </div>
   </div>
 </div>

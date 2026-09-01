@@ -2,12 +2,16 @@
   <h1>Mis Postulaciones</h1>
 
   <div class="postulaciones">
-    @if (postulaciones().length > 0) {
+    @if (cargando()) {
+      <app-loading />
+    } @else if (error()) {
+      <p>{{ error() }}</p>
+    } @else if (postulaciones().length > 0) {
       @for (postulacion of postulaciones(); track postulacion.id) {
-        <app-job-card [postulacion]="postulacion"></app-job-card>
+        <app-job-card [postulacion]="postulacion"> </app-job-card>
       }
     } @else {
-      <p>Cargando postulaciones...</p>
+      <p>No tienes postulaciones registradas.</p>
     }
   </div>
 </div>

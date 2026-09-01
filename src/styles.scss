@@ -17,9 +17,9 @@
   --primary-color: #052df9;
   --mix-color: #ffffff;
   --error: #f90505;
+  --transparente: rgba(250, 250, 250, 0.548);
 }
 
-/* En tu CSS global (styles.scss) */
 .btn {
   padding: 6px;
   flex: 1 1 100px;

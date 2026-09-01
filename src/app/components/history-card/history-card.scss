@@ -1,0 +1,41 @@
+.historial-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  padding-left: 1rem;
+  gap: 4px;
+
+  position: relative; // Necesario para posicionar la línea lateral
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: var(--status-color, var(--primary-color));
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--status-color, var(--primary-color));
+  }
+
+  .fecha {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    font-size: 0.8em;
+  }
+
+  .cambios {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding-top: 10px;
+    .flecha-separador {
+      font-size: 1.25rem;
+      user-select: none; // Evita que se seleccione como texto accidentalmente
+      padding: 0 5px;
+    }
+  }
+}

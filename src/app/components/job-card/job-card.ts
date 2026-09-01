@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { Tag } from '../tag/tag';
 import { Postulacion } from '../../interfaces/postulacion.interface';
 import { IconBuildingComponent } from '../icons/icon-building.component';
@@ -8,6 +8,7 @@ import { IconPcComponent } from '../icons/icon-pc.component';
 import { IconHouseComponent } from '../icons/icon-house.component';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { IconDateComponent } from '../icons/icon-date.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-job-card',
@@ -21,10 +22,11 @@ import { IconDateComponent } from '../icons/icon-date.component';
     IconDateComponent,
     TitleCasePipe,
     DatePipe,
+    RouterLink
   ],
   templateUrl: './job-card.html',
   styleUrl: './job-card.scss',
 })
 export class JobCard {
-  @Input() postulacion!: Postulacion;
+  postulacion = input.required<Postulacion>();
 }

@@ -4,7 +4,13 @@ import { Component } from '@angular/core';
   selector: 'app-icon-briefcase',
   standalone: true,
   template: `
-    <svg width="12" height="12" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"

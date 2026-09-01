@@ -1,0 +1,64 @@
+<div class="detalles-container" [style.--status-color]="activarColor()">
+  <div class="esfera"></div>
+  <div class="detalles">
+    @if (cargando()) {
+      <app-loading />
+    } @else if (error()) {
+      <p>{{ error() }}</p>
+    }
+    @if (postulacion(); as p) {
+      <header class="encabezado">
+        <h1>{{ p.nombreOferta }}</h1>
+        <app-tag [estado]="p.estado" />
+      </header>
+
+      <div class="contenido">
+        @if (p.nombreEmpresa) {
+          <div class="dato">
+            <span class="etiqueta">Empresa:</span>
+            <span>{{ p.nombreEmpresa }}</span>
+          </div>
+        }
+
+        @if (p.paginaAplicacion) {
+          <div class="dato">
+            <span class="etiqueta">Página Aplicación:</span>
+            <span>{{ p.paginaAplicacion }}</span>
+          </div>
+        }
+
+        @if (p.modalidad) {
+          <div class="dato">
+            <span class="etiqueta">Modalidad:</span>
+            <span>{{ p.modalidad }}</span>
+          </div>
+        }
+
+        @if (p.url) {
+          <div class="dato">
+            <span class="etiqueta">Url:</span>
+            <a [href]="p.url" target="_blank" rel="noopener noreferrer">{{ p.url }}</a>
+          </div>
+        }
+
+        @if (p.fecha) {
+          <div class="dato">
+            <span class="etiqueta">Fecha Postulación:</span>
+            <span>{{ p.fecha | date: 'dd/MM/yyyy' }}</span>
+          </div>
+        }
+      </div>
+      <div class="acciones">
+        <button type="button" class="btn error">Eliminar</button>
+        <button type="button" class="btn">Editar</button>
+      </div>
+
+      @if (p.historial && p.historial.length > 1) {
+        <h3>Historial de Cambios</h3>
+        @for (cambio of p.historial; track $index) {
+          <app-history-card [historial]="cambio"></app-history-card>
+        }
+      }
+    }
+  </div>
+</div>

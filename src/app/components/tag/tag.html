@@ -1,6 +1,10 @@
-@if (estado) {
-  <div class="tag-component" [style.--status-color]="estado.color">
+@if (estado(); as estadoActual) {
+  <div class="tag-component" [style.--status-color]="estadoActual.color">
     <div class="indicator"></div>
-    <h4>{{ estado.nombre }}</h4>
+    <h4>{{ estadoActual.nombre }}</h4>
+  </div>
+} @else if (titulo()) {
+  <div class="tag-component" [style.--status-color]="color()">
+    <p>{{ titulo() }}</p>
   </div>
 }

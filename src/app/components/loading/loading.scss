@@ -1,0 +1,35 @@
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(36, 35, 35, 0.661);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+  }
+}
+
+.spinner {
+  width: 4.5em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 20%, var(--primary-color));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 0);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

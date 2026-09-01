@@ -1,23 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { Postulacion } from '../interfaces/postulacion.interface';
 import { ApiResponse } from '../interfaces/api-response.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostulacionService {
-  private apiUrl = 'http://localhost:8080/api/postulaciones';
+  private readonly http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private readonly apiUrl = `${environment.apiUrl}/postulaciones`;
 
-  obtenerPostulaciones(): Observable<ApiResponse<Postulacion[]>> {
-    const token = localStorage.getItem('token');
+  obtenerPostulaciones(): Observable<Postulacion[]> {
+    return this.http
+      .get<ApiResponse<Postulacion[]>>(this.apiUrl)
+      .pipe(map((response) => response.data));
+  }
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<ApiResponse<Postulacion[]>>(this.apiUrl, { headers });
+  obtenerDetallePostulacion(id: number): Observable<Postulacion> {
+    return this.http
+      .get<ApiResponse<Postulacion>>(`${this.apiUrl}/${id}`)
+      .pipe(map((response) => response.data));
   }
 }

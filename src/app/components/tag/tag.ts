@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { Estado } from '../../interfaces/estado.interface ';
 
 @Component({
@@ -8,5 +8,7 @@ import { Estado } from '../../interfaces/estado.interface ';
   styleUrl: './tag.scss',
 })
 export class Tag {
-  @Input({ required: true }) estado!: Estado;
+  estado = input<Estado>();
+  titulo = input<string>();
+  color = input<string>();
 }

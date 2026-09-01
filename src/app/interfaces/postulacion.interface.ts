@@ -6,6 +6,13 @@ export enum Modalidad {
   PRESENCIAL = 'PRESENCIAL',
 }
 
+export interface Historial {
+  campoActualizado: string;
+  valorAntiguo: string;
+  valorNuevo: string;
+  fechaActualizacion: string;
+}
+
 export interface Postulacion {
   id: number;
   nombreOferta: string;
@@ -15,4 +22,5 @@ export interface Postulacion {
   modalidad: Modalidad | null;
   fecha: string;
   estado: Estado;
+  historial?: Historial[];
 }
