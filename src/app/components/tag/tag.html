@@ -1,10 +1,15 @@
 @if (estado(); as estadoActual) {
   <div class="tag-component" [style.--status-color]="estadoActual.color">
-    <div class="indicator"></div>
-    <h4>{{ estadoActual.nombre }}</h4>
+    <span class="indicator"></span>
+    <span class="text">{{ estadoActual.nombre }}</span>
+  </div>
+} @else if (estadoManual()) {
+  <div class="tag-component" [style.--status-color]="color()">
+    <span class="indicator"></span>
+    <span class="text">{{ titulo() }}</span>
   </div>
 } @else if (titulo()) {
-  <div class="tag-component" [style.--status-color]="color()">
-    <p>{{ titulo() }}</p>
+  <div class="tag-component no-indicator" [style.--status-color]="color()">
+    <span class="text">{{ titulo() }}</span>
   </div>
 }

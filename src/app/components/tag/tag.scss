@@ -1,22 +1,43 @@
 .tag-component {
-  display: flex;
-  padding: 2px 6px;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  height: fit-content;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 12px; // Más espacio interno
   width: fit-content;
+  height: fit-content;
 
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--status-color, var(--primary-color)), var(--mix-color) 80%);
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 70%);
+
+  /* Mantiene el color de fondo dinámico */
+  background: color-mix(
+    in srgb,
+    var(--status-color, var(--primary-color)),
+    var(--mix-color, #ffffff) 85%
+  );
+  color: var(--status-color, var(--primary-color));
 
   .indicator {
-    width: 0.6em;
-    aspect-ratio: 1;
-
-    border-radius: 100%;
+    width: 8px; // Indicador un poco más grande
+    height: 8px;
+    border-radius: 50%;
     background-color: var(--status-color, var(--primary-color));
+    flex-shrink: 0;
   }
 
-  color: var(--status-color, var(--primary-color));
+  .text,
+  h4,
+  p {
+    margin: 0;
+    font-size: 0.875rem; // Tamaño de texto estándar cómodo (14px)
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  &.no-indicator {
+    padding: 6px 14px;
+  }
 }

@@ -1,15 +1,12 @@
 .jobCard-container {
   position: relative;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
   align-self: stretch;
-
-  border-radius: 4px;
+  border-radius: 12px;
   background: #f3f3f3;
-
   overflow: hidden;
   border: 1px dashed color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 60%);
 
@@ -18,25 +15,21 @@
     left: 50%;
     top: 50%;
     transform: translateY(-50%);
-    //  transform: translate(-40%, -50%);
     width: 100%;
     height: 75%;
-
     background-color: var(--status-color, var(--primary-color));
     border-radius: 25%;
   }
 
   .info-container {
     display: flex;
-    padding: 10px;
+    padding: 12px;
     flex-direction: column;
     align-items: flex-start;
-
     align-self: stretch;
     background: var(--transparente);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px); //safari
-
+    -webkit-backdrop-filter: blur(20px);
     gap: 0;
     transition: gap 0.4s ease;
 
@@ -71,14 +64,10 @@
       gap: 10px;
       align-self: stretch;
       background: color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 95%);
-      border-radius: 4px;
-      //padding: 5px;
-      //height: fit-content;
-
-      //Para ek despliegue
+      border-radius: 6px;
       max-height: 0;
       opacity: 0;
-      padding: 0 5px; /* Sin padding vertical mientras esté cerrado */
+      padding: 0 5px;
       overflow: hidden;
       transition:
         max-height 0.4s ease,
@@ -112,31 +101,68 @@
       }
     }
 
-    .acciones {
+    /* Botón "Ver detalle" desplegable en la esquina inferior derecha */
+    .acciones-card {
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
+      justify-content: flex-end;
+      align-items: center;
       align-self: stretch;
-      flex-wrap: wrap;
-
       max-height: 0;
       opacity: 0;
       overflow: hidden;
+      transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease;
+
+      .btn-detalle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        background: transparent;
+        border: none;
+        color: #334155;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        svg {
+          transition: transform 0.2s ease;
+        }
+
+        &:hover {
+          background: transparent;
+
+          color: var(--status-color, #2563eb);
+
+          svg {
+            transform: translateX(3px);
+          }
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
     }
   }
 
   &:hover {
     box-shadow: 0 0 10px -5px var(--status-color, var(--primary-color));
+
     .info-container {
       gap: 12px;
+
       .extra {
-        max-height: 400px; /* Un valor superior a la altura real de tu contenido */
+        max-height: 400px;
         opacity: 1;
-        padding: 5px;
+        padding: 8px 5px;
       }
 
-      .acciones {
-        max-height: 400px; /* Un valor superior a la altura real de tu contenido */
+      .acciones-card {
+        max-height: 50px;
         opacity: 1;
       }
     }

@@ -8,56 +8,107 @@
     }
     @if (postulacion(); as p) {
       <header class="encabezado">
-        <h1>{{ p.nombreOferta }}</h1>
-        <app-tag [estado]="p.estado" />
+        <div class="titulo-wrapper">
+          <h1>{{ p.nombreOferta }}</h1>
+          <app-tag [estado]="p.estado" />
+        </div>
       </header>
 
       <div class="contenido">
+        <!-- Botones de acción circulares integrados dentro de la tarjeta -->
+        <div class="acciones-card">
+          <button
+            type="button"
+            class="btn-icon btn-editar"
+            [routerLink]="['/editar', p.id]"
+            title="Editar postulación"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="btn-icon btn-eliminar"
+            (click)="eliminarPostulacion()"
+            title="Eliminar postulación"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
         @if (p.nombreEmpresa) {
           <div class="dato">
-            <span class="etiqueta">Empresa:</span>
-            <span>{{ p.nombreEmpresa }}</span>
+            <span class="etiqueta">Empresa</span>
+            <span class="valor">{{ p.nombreEmpresa }}</span>
           </div>
         }
 
         @if (p.paginaAplicacion) {
           <div class="dato">
-            <span class="etiqueta">Página Aplicación:</span>
-            <span>{{ p.paginaAplicacion }}</span>
+            <span class="etiqueta">Página Aplicación</span>
+            <span class="valor">{{ p.paginaAplicacion }}</span>
           </div>
         }
 
         @if (p.modalidad) {
           <div class="dato">
-            <span class="etiqueta">Modalidad:</span>
-            <span>{{ p.modalidad }}</span>
-          </div>
-        }
-
-        @if (p.url) {
-          <div class="dato">
-            <span class="etiqueta">Url:</span>
-            <a [href]="p.url" target="_blank" rel="noopener noreferrer">{{ p.url }}</a>
+            <span class="etiqueta">Modalidad</span>
+            <span class="valor badge-modalidad">{{ p.modalidad }}</span>
           </div>
         }
 
         @if (p.fecha) {
           <div class="dato">
-            <span class="etiqueta">Fecha Postulación:</span>
-            <span>{{ p.fecha | date: 'dd/MM/yyyy' }}</span>
+            <span class="etiqueta">Fecha Postulación</span>
+            <span class="valor">{{ p.fecha | date: 'dd/MM/yyyy' }}</span>
+          </div>
+        }
+
+        @if (p.url) {
+          <div class="dato dato-full">
+            <span class="etiqueta">Enlace de oferta</span>
+            <a [href]="p.url" target="_blank" rel="noopener noreferrer" class="link-url">
+              <span>{{ p.url }}</span>
+              <span class="icono-link">↗</span>
+            </a>
           </div>
         }
       </div>
-      <div class="acciones">
-        <button type="button" class="btn error" (click)="eliminarPostulacion()">Eliminar</button>
-        <button type="button" class="btn" [routerLink]="['/editar', p.id]">Editar</button>
-      </div>
-
-      @if (p.historial && p.historial.length > 1) {
-        <h3>Historial de Cambios</h3>
-        @for (cambio of p.historial; track $index) {
-          <app-history-card [historial]="cambio"></app-history-card>
-        }
+      @if (p.historial && p.historial.length >= 1) {
+        <h3 class="titulo-historial">Historial de Cambios</h3>
+        <!-- Contenedor padre de la línea continua -->
+        <div class="timeline-wrapper">
+          @for (cambio of p.historial; track $index) {
+            <app-history-card [historial]="cambio"></app-history-card>
+          }
+        </div>
       }
     }
   </div>

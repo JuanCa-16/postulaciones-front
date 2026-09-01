@@ -1,0 +1,190 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.08);
+  }
+
+  .estado-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+
+    // Campo de texto principal
+    .input-container {
+      display: flex;
+      flex: 1;
+      min-width: 0; // Garantiza responsive perfecto sin overflow
+
+      input[type='text'] {
+        border: 1px solid transparent;
+        outline: none;
+        background: rgba(241, 245, 249, 0.8);
+        font-size: 0.875rem;
+        color: #0f172a;
+        font-weight: 500;
+        width: 100%;
+        border-radius: 6px;
+        padding: 6px 10px;
+        transition: all 0.2s ease;
+
+        &:focus {
+          background: #ffffff;
+          border-color: #cbd5e1;
+        }
+
+        &::placeholder {
+          color: #94a3b8;
+        }
+      }
+    }
+
+    // Selector de Color
+    .color-picker-wrapper {
+      position: relative;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 2px #ffffff,
+        0 2px 5px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      flex-shrink: 0;
+
+      input[type='color'] {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+        background: none;
+      }
+    }
+
+    // Chip por defecto
+    .chip-default {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      background-color: transparent;
+      color: #64748b;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+
+      input[type='checkbox'] {
+        display: none;
+      }
+
+      &:hover {
+        border-color: #94a3b8;
+        color: #475569;
+      }
+
+      &.active {
+        background-color: #e0e7ff;
+        border-color: #6366f1;
+        color: #4338ca;
+      }
+    }
+
+    // Botón de guardar
+    .btn-guardar-check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background-color: #10b981;
+      color: #ffffff;
+      cursor: pointer;
+      flex-shrink: 0;
+
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.7);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+      }
+
+      &:hover:not(:disabled) {
+        background-color: #059669;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+      }
+    }
+  }
+
+  .btn-eliminar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(241, 245, 249, 0.8);
+    color: #64748b;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #fee2e2; // Rojo suave
+      color: #ef4444; // Rojo intenso
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  // 6. Área de Vista Previa (Inferior)
+  .preview-footer {
+    display: flex;
+    align-items: center;
+    //justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(203, 213, 225, 0.6); // Separador tenue de puntos
+
+    .preview-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}

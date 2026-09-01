@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="estado-input-container">
+    <div class="input-container">
+      <input type="text" maxlength="20" [placeholder]="placeholder()" [(ngModel)]="titulo" />
+    </div>
+
+    <div class="color-picker-wrapper">
+      <input type="color" [(ngModel)]="color" id="colorPicker" />
+    </div>
+
+    <label
+      class="chip-default"
+      [class.active]="porDefecto()"
+      title="Marcar como estado por defecto"
+    >
+      <input type="checkbox" [ngModel]="porDefecto()" (ngModelChange)="onDefectoChange($event)" />
+      <span>Defecto</span>
+    </label>
+
+    <!-- Botón de Guardar (Check) -->
+    <button
+      type="button"
+      class="btn-guardar-check"
+      [class.visible]="haCambiado()"
+      [disabled]="!haCambiado()"
+      (click)="guardar()"
+      title="Guardar cambios"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </button>
+
+    <!-- Botón de Eliminar (Papelera) -->
+    @if (mostrarEliminar()) {
+      <button type="button" class="btn-eliminar" (click)="eliminar()" title="Eliminar estado">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path
+            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+          ></path>
+        </svg>
+      </button>
+    }
+  </div>
+
+  <div class="preview-footer">
+    <span class="preview-label">Vista previa:</span>
+    <app-tag [estadoManual]="true" [titulo]="titulo()" [color]="color()" />
+  </div>
+</div>

@@ -11,4 +11,5 @@ export class Tag {
   estado = input<Estado>();
   titulo = input<string>();
   color = input<string>();
+  estadoManual = input<boolean>(false);
 }

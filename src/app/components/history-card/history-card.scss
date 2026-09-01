@@ -1,41 +1,94 @@
-.historial-container {
+:host {
+  display: block;
+  position: relative;
+}
+
+.historial-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  margin: 1rem 0;
-  padding-left: 1rem;
-  gap: 4px;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
 
-  position: relative; // Necesario para posicionar la línea lateral
-
+  /* Punto del Timeline posicionado exactamente sobre la línea exterior */
   &::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
+    left: -21px; // Alineado con los 7px de la línea del wrapper
+    top: 18px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
     background-color: var(--status-color, var(--primary-color));
-    border-radius: 10px;
-    box-shadow: 0 0 8px var(--status-color, var(--primary-color));
+    box-shadow: 0 0 0 3px #ffffff, 0 0 0 4px rgba(203, 213, 225, 0.8);
+    z-index: 2;
   }
 
-  .fecha {
+  .historial-header {
     display: flex;
-    flex-direction: row;
-    gap: 5px;
-    font-size: 0.8em;
+    justify-content: space-between;
+    align-items: center;
+
+    .campo-nombre {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #0f172a;
+    }
+
+    .fecha {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #94a3b8;
+    }
   }
 
-  .cambios {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
-    padding-top: 10px;
-    .flecha-separador {
-      font-size: 1.25rem;
-      user-select: none; // Evita que se seleccione como texto accidentalmente
-      padding: 0 5px;
+  .cambio-valores {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+
+    .bloque-valor {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #94a3b8;
+      }
+
+      .texto-valor {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #64748b;
+      }
+
+      &.nuevo {
+        .texto-valor {
+          color: #2563eb;
+        }
+      }
+    }
+
+    .flecha {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      font-weight: 400;
+      margin-top: 10px;
+      user-select: none;
     }
   }
 }

@@ -1,13 +1,23 @@
-<div class="historial-container">
-  <h4>{{ historial().campoActualizado | uppercase }}</h4>
-  <div class="fecha">
-    <app-icon-date></app-icon-date>
-    <p>{{ historial().fechaActualizacion | date: 'dd/MM/yyyy' }}</p>
+<div class="historial-card">
+  <div class="historial-header">
+    <span class="campo-nombre">{{ historial().campoActualizado }}</span>
+    <div class="fecha">
+      <app-icon-date></app-icon-date>
+      <span>{{ historial().fechaActualizacion | date: 'dd/MM/yyyy' }}</span>
+    </div>
   </div>
 
-  <div class="cambios">
-    <app-tag [titulo]="historial().valorAntiguo ?? 'Sin datos'" color="#757575"></app-tag>
-    <span class="flecha-separador">→</span>
-    <app-tag [titulo]="historial().valorNuevo" color="#2563EB"></app-tag>
+  <div class="cambio-valores">
+    <div class="bloque-valor previo">
+      <span class="label">Anterior</span>
+      <span class="texto-valor">{{ historial().valorAntiguo ?? 'Sin datos' }}</span>
+    </div>
+
+    <span class="flecha">→</span>
+
+    <div class="bloque-valor nuevo">
+      <span class="label">Actual</span>
+      <span class="texto-valor">{{ historial().valorNuevo }}</span>
+    </div>
   </div>
 </div>

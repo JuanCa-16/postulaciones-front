@@ -1,5 +1,6 @@
 <div class="jobCard-container" [style.--status-color]="postulacion().estado.color">
   <div class="esfera"></div>
+
   <div class="info-container">
     <div class="info">
       <div class="puesto">
@@ -8,6 +9,7 @@
       </div>
       <app-tag [estado]="postulacion().estado"></app-tag>
     </div>
+
     <div class="extra">
       <div class="text">
         @if (postulacion().paginaAplicacion) {
@@ -49,10 +51,18 @@
         </div>
       </div>
     </div>
-    <div class="acciones">
-      <button type="button" class="btn error" (click)="eliminarPostulacion()">Eliminar</button>
-      <button type="button" class="btn" [routerLink]="['/detalles', postulacion().id]">
-        Editar
+
+    <!-- Único botón "Ver detalle" abajo a la derecha -->
+    <div class="acciones-card">
+      <button 
+        type="button" 
+        class="btn-detalle" 
+        [routerLink]="['/detalles', postulacion().id]">
+        <span>Ver detalle</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
       </button>
     </div>
   </div>
