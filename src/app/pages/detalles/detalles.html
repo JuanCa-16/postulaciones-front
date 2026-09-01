@@ -49,8 +49,8 @@
         }
       </div>
       <div class="acciones">
-        <button type="button" class="btn error">Eliminar</button>
-        <button type="button" class="btn">Editar</button>
+        <button type="button" class="btn error" (click)="eliminarPostulacion()">Eliminar</button>
+        <button type="button" class="btn" [routerLink]="['/editar', p.id]">Editar</button>
       </div>
 
       @if (p.historial && p.historial.length > 1) {

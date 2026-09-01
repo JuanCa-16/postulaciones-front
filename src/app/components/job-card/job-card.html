@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="acciones">
-      <button type="button" class="btn error">Eliminar</button>
+      <button type="button" class="btn error" (click)="eliminarPostulacion()">Eliminar</button>
       <button type="button" class="btn" [routerLink]="['/detalles', postulacion().id]">
         Editar
       </button>

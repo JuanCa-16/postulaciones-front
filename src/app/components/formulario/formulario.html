@@ -1,0 +1,74 @@
+<div class="formulario-overlay" [style.--status-color]="postulacion()?.estado?.color">
+  <span class="esfera esfera-izquierda"></span>
+  <span class="esfera esfera-derecha"></span>
+  <div class="formulario-container">
+    <h3>Crear nueva postulación</h3>
+
+    <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
+      <div class="input-container">
+        <small>Nombre*</small>
+        <input type="text" formControlName="nombreOferta" placeholder="Nombre de la oferta" />
+        @if (esCampoInvalido('nombreOferta')) {
+          <small class="error-input">El nombre de la oferta es obligatorio.</small>
+        }
+      </div>
+
+      <div class="input-container">
+        <small>Empresa</small>
+        <input type="text" formControlName="nombreEmpresa" placeholder="Empresa" />
+      </div>
+
+      <div class="row">
+        <div class="input-container">
+          <small>Url</small>
+          <input type="text" formControlName="url" placeholder="URL" />
+        </div>
+
+        <div class="input-container">
+          <small>Página</small>
+          <input
+            type="text"
+            formControlName="paginaAplicacion"
+            placeholder="Página de aplicación"
+          />
+        </div>
+      </div>
+
+      @if (esCampoInvalido('modalidad')) {
+        <small class="error-input">Selecciona una modalidad.</small>
+      }
+      <div class="radios">
+        <label>
+          <input type="radio" formControlName="modalidad" value="REMOTO" />
+          Remoto
+        </label>
+
+        <label>
+          <input type="radio" formControlName="modalidad" value="HIBRIDO" />
+          Híbrido
+        </label>
+
+        <label>
+          <input type="radio" formControlName="modalidad" value="PRESENCIAL" />
+          Presencial
+        </label>
+      </div>
+
+      <div class="radios">
+        @for (estado of estados(); track estado.id) {
+          <label>
+            <input type="radio" formControlName="estadoId" [value]="estado.id" />
+
+            {{ estado.nombre }}
+          </label>
+        }
+      </div>
+      @if (esCampoInvalido('estadoId')) {
+        <small class="error-input">Selecciona un estado.</small>
+      }
+      <div class="accion">
+        <button type="submit" class="btn">{{ postulacion() ? 'Guardar cambios' : 'Crear' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 <div class="inicio-container">
-  <h1>Mis Postulaciones</h1>
-
+  <header>
+    <h1>Mis Postulaciones</h1>
+    <button type="button" class="btn" [routerLink]="['/agregar']">Agregar</button>
+  </header>
   <div class="postulaciones">
     @if (cargando()) {
       <app-loading />
@@ -8,7 +10,8 @@
       <p>{{ error() }}</p>
     } @else if (postulaciones().length > 0) {
       @for (postulacion of postulaciones(); track postulacion.id) {
-        <app-job-card [postulacion]="postulacion"> </app-job-card>
+        <app-job-card [postulacion]="postulacion" (eliminar)="eliminarPostulacion($event)">
+        </app-job-card>
       }
     } @else {
       <p>No tienes postulaciones registradas.</p>

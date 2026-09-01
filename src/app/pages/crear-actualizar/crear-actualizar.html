@@ -1,0 +1,15 @@
+@if (cargando()) {
+  <app-loading />
+} @else if (error()) {
+  <p>{{ error() }}</p>
+}
+
+@if (postulacion()) {
+  <app-formulario
+    [estados]="estados()"
+    [postulacion]="postulacion()"
+    (editar)="editarPostulacion($event)"
+  ></app-formulario>
+} @else {
+  <app-formulario [estados]="estados()" (crear)="crearPostulacion($event)"></app-formulario>
+}

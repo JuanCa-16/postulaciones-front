@@ -6,7 +6,7 @@
   </div>
 
   <div class="cambios">
-    <app-tag [titulo]="historial().valorAntiguo" color="#757575"></app-tag>
+    <app-tag [titulo]="historial().valorAntiguo ?? 'Sin datos'" color="#757575"></app-tag>
     <span class="flecha-separador">→</span>
     <app-tag [titulo]="historial().valorNuevo" color="#2563EB"></app-tag>
   </div>

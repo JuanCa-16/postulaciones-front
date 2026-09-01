@@ -3,6 +3,18 @@
   flex-direction: column;
   padding: 20px;
 
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .btn {
+      width: auto;
+      flex: none;
+    }
+  }
   .postulaciones {
     margin-top: 20px;
     display: flex;

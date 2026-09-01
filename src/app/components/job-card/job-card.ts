@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, input, Input, output } from '@angular/core';
 import { Tag } from '../tag/tag';
 import { Postulacion } from '../../interfaces/postulacion.interface';
 import { IconBuildingComponent } from '../icons/icon-building.component';
@@ -22,11 +22,16 @@ import { RouterLink } from '@angular/router';
     IconDateComponent,
     TitleCasePipe,
     DatePipe,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './job-card.html',
   styleUrl: './job-card.scss',
 })
 export class JobCard {
   postulacion = input.required<Postulacion>();
+  eliminar = output<number>();
+
+  eliminarPostulacion(): void {
+    this.eliminar.emit(this.postulacion().id);
+  }
 }

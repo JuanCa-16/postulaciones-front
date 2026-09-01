@@ -1,4 +1,4 @@
-import { Estado } from './estado.interface ';
+import { Estado } from './estado.interface';
 
 export enum Modalidad {
   REMOTO = 'REMOTO',
@@ -8,7 +8,7 @@ export enum Modalidad {
 
 export interface Historial {
   campoActualizado: string;
-  valorAntiguo: string;
+  valorAntiguo: string | null;
   valorNuevo: string;
   fechaActualizacion: string;
 }
@@ -19,8 +19,17 @@ export interface Postulacion {
   nombreEmpresa: string | null;
   url: string | null;
   paginaAplicacion: string | null;
-  modalidad: Modalidad | null;
+  modalidad: Modalidad;
   fecha: string;
   estado: Estado;
   historial?: Historial[];
+}
+
+export interface CrearPostulacion {
+  nombreOferta: string;
+  nombreEmpresa: string | null;
+  url: string | null;
+  paginaAplicacion: string | null;
+  modalidad: Modalidad;
+  estadoId: number;
 }

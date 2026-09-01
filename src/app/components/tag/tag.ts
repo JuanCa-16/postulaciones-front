@@ -1,5 +1,5 @@
 import { Component, input, Input } from '@angular/core';
-import { Estado } from '../../interfaces/estado.interface ';
+import { Estado } from '../../interfaces/estado.interface';
 
 @Component({
   selector: 'app-tag',
