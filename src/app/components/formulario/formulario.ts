@@ -2,10 +2,14 @@ import { Component, input, effect, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Estado } from '../../interfaces/estado.interface';
 import { CrearPostulacion, Modalidad, Postulacion } from '../../interfaces/postulacion.interface';
+import { Chip } from '../inputs/chip/chip';
+import { ChipGroup } from '../chip-group/chip-group';
+import { InputField } from '../inputs/input-field/input-field';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-formulario',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Chip, ChipGroup, InputField, Header],
   templateUrl: './formulario.html',
   styleUrl: './formulario.scss',
 })

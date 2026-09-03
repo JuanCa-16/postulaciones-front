@@ -5,9 +5,11 @@ import { Postulacion } from '../../interfaces/postulacion.interface';
 import { finalize } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
 import { Router, RouterLink } from '@angular/router';
+import { IconGear } from '../../components/icons/gear.component';
+import { IconPlus } from '../../components/icons/plus.component';
 @Component({
   selector: 'app-inicio',
-  imports: [JobCard, Loading, RouterLink],
+  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })

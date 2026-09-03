@@ -1,141 +1,88 @@
-.formulario-overlay {
-  position: relative;
+@use '../../../styles/mixins' as *;
+
+:host {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+.formulario-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 520px;
+  max-height: 90vh;
+  padding: 24px;
+  border-radius: 12px;
 
-  // Esferas difuminadas
-  .esfera {
-    position: absolute;
-    width: 25%;
-    min-width: 240px;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    background-color: var(--status-color, #3b82f6);
-    z-index: 1;
-    filter: blur(70px);
-    opacity: 0.5;
+  @include glass-card;
+  // Header del modal
+  
+
+  // Área Central con Scroll Flexible
+  .estados-scroll-area {
+    flex: 1;
+    min-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    margin-right: -6px; // Para que el scroll no reduzca el espacio útil
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+
+      &:hover {
+        background: #94a3b8;
+      }
+    }
+
+    .estados-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 4px;
+    }
   }
 
-  .esfera-izquierda { top: -20px; left: -20px; }
-  .esfera-derecha { bottom: -20px; right: -20px; }
+  // Pie con sección de creación
+  .modal-footer {
+    flex-shrink: 0;
+    margin-top: 12px;
+    padding-top: 12px;
 
-  &::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.2); // Sombra global sutil de fondo
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    z-index: 1;
-  }
+    .separador {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 12px;
 
-  // Tarjeta Contenedora Principal (Rediseñada)
-  .formulario-container {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    max-width: 520px;
-    max-height: 85vh;
-    padding: 24px;
-    border-radius: 20px;
-    
-    // Glassmorphic refinado con iluminación en bordes
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 
-      0 20px 40px -15px rgba(0, 0, 0, 0.07),
-      0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+      &::before,
+      &::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px dashed #cbd5e1;
+      }
 
-    // Header del modal
-    .modal-header {
-      flex-shrink: 0;
-      margin-bottom: 16px;
-
-      h3 {
-        margin: 0;
-        font-size: 1.25rem;
+      span {
+        padding: 0 10px;
+        font-size: 0.7rem;
         font-weight: 700;
-        color: #0f172a;
-        letter-spacing: -0.3px;
-      }
-
-      .subtitle {
-        margin: 4px 0 0 0;
-        font-size: 0.825rem;
         color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
       }
     }
 
-    // Área Central con Scroll Flexible
-    .estados-scroll-area {
-      flex: 1;
-      min-height: 120px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding-right: 6px;
-      margin-right: -6px; // Para que el scroll no reduzca el espacio útil
-
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 10px;
-
-        &:hover {
-          background: #94a3b8;
-        }
-      }
-
-      .estados-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding-bottom: 4px;
-      }
-    }
-
-    // Pie con sección de creación
-    .modal-footer {
-      flex-shrink: 0;
-      margin-top: 12px;
-      padding-top: 12px;
-
-      .separador {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        margin-bottom: 12px;
-
-        &::before,
-        &::after {
-          content: '';
-          flex: 1;
-          border-bottom: 1px dashed #cbd5e1;
-        }
-
-        span {
-          padding: 0 10px;
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: #64748b;
-          text-transform: uppercase;
-          letter-spacing: 0.6px;
-        }
-      }
-
-      .agregar-estado-wrapper {
-        width: 100%;
-      }
+    .agregar-estado-wrapper {
+      width: 100%;
     }
   }
 }

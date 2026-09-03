@@ -1,0 +1,18 @@
+.modal-header {
+  flex-shrink: 0;
+  margin-bottom: 16px;
+
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.3px;
+  }
+
+  .subtitle {
+    margin: 4px 0 0 0;
+    font-size: 0.825rem;
+    color: #64748b;
+  }
+}

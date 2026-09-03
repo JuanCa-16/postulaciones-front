@@ -1,0 +1,9 @@
+<div class="section-group">
+  <small class="section-label">{{ label() }}</small>
+  <div class="radios">
+    <ng-content></ng-content>
+  </div>
+  @if (mostrarError() && error()) {
+    <small class="error-input">{{ error() }}</small>
+  }
+</div>

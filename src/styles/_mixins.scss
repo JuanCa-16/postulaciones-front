@@ -1,0 +1,23 @@
+@mixin form-error-text($color: #ef4444) {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: $color;
+  margin-top: 4px;
+  line-height: 1.2;
+  transition: all 0.2s ease-in-out;
+}
+
+@mixin glass-card(
+  $bg-opacity: 0.75,
+  $blur: 20px,
+  $border-opacity: 0.6,
+  $shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07),
+  $inset-light: 0 0 0 1px rgba(255, 255, 255, 0.4) inset
+) {
+  background: rgba(255, 255, 255, $bg-opacity);
+  border: 1px solid rgba(255, 255, 255, $border-opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  box-shadow: $shadow, $inset-light;
+}

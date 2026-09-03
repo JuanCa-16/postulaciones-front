@@ -4,55 +4,48 @@
   <p>{{ error() }}</p>
 }
 
-<div class="formulario-overlay" [style.--status-color]="">
-  <span class="esfera esfera-izquierda"></span>
-  <span class="esfera esfera-derecha"></span>
+<div class="formulario-container">
+  <app-header
+    titulo="Configuración de Estados"
+    subtitulo="Gestiona y personaliza las etiquetas de tus postulaciones"
+  ></app-header>
 
-  <div class="formulario-container">
-    <header class="modal-header">
-      <div>
-        <h3>Configuración de Estados</h3>
-        <p class="subtitle">Gestiona y personaliza las etiquetas de tus postulaciones</p>
+  <main class="estados-scroll-area">
+    <div class="estados-list">
+      @for (estado of estados(); track estado.id) {
+        <app-estado-input
+          [id]="estado.id"
+          [colorInicial]="estado.color"
+          [tituloInicial]="estado.nombre"
+          [porDefectoInicial]="estado.porDefecto"
+          (alGuardar)="procesarEdicion($event)"
+          (alCambiarDefecto)="procesarEdicion($event)"
+          (alEliminar)="eliminar($event)"
+        ></app-estado-input>
+      }
+    </div>
+  </main>
+
+  @if (estados().length < 5) {
+    <footer class="modal-footer">
+      <div class="separador">
+        <span>Crear nuevo estado</span>
       </div>
-    </header>
-
-    <main class="estados-scroll-area">
-      <div class="estados-list">
-        @for (estado of estados(); track estado.id) {
-          <app-estado-input
-            [id]="estado.id"
-            [colorInicial]="estado.color"
-            [tituloInicial]="estado.nombre"
-            [porDefectoInicial]="estado.porDefecto"
-            (alGuardar)="procesarEdicion($event)"
-            (alCambiarDefecto)="procesarEdicion($event)"
-            (alEliminar)="eliminar($event)"
-          ></app-estado-input>
-        }
+      <div class="agregar-estado-wrapper">
+        <app-estado-input
+          [colorInicial]="color()"
+          [tituloInicial]="texto()"
+          [porDefectoInicial]="defecto()"
+          [mostrarEliminar]="false"
+          (alGuardar)="procesarGuardado($event)"
+        ></app-estado-input>
       </div>
-    </main>
-
-    @if (estados().length < 5) {
-      <footer class="modal-footer">
-        <div class="separador">
-          <span>Crear nuevo estado</span>
-        </div>
-        <div class="agregar-estado-wrapper">
-          <app-estado-input
-            [colorInicial]="color()"
-            [tituloInicial]="texto()"
-            [porDefectoInicial]="defecto()"
-            [mostrarEliminar]="false"
-            (alGuardar)="procesarGuardado($event)"
-          ></app-estado-input>
-        </div>
-      </footer>
-    } @else {
-      <footer class="modal-footer">
-        <div class="separador">
-          <span>Máximo de Estados creados</span>
-        </div>
-      </footer>
-    }
-  </div>
+    </footer>
+  } @else {
+    <footer class="modal-footer">
+      <div class="separador">
+        <span>Máximo de Estados creados</span>
+      </div>
+    </footer>
+  }
 </div>

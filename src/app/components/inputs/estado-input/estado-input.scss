@@ -145,30 +145,6 @@
     }
   }
 
-  .btn-eliminar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: none;
-    background-color: rgba(241, 245, 249, 0.8);
-    color: #64748b;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background-color: #fee2e2; // Rojo suave
-      color: #ef4444; // Rojo intenso
-      transform: scale(1.05);
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
 
   // 6. Área de Vista Previa (Inferior)
   .preview-footer {

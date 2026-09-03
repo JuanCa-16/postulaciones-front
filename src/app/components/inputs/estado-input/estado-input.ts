@@ -2,11 +2,12 @@ import { Component, computed, input, linkedSignal, output } from '@angular/core'
 import { FormsModule } from '@angular/forms';
 import { Tag } from '../../tag/tag';
 import { EstadoInputEvent } from '../../../interfaces/estado.interface';
+import { IconTrash } from "../../icons/trash.component";
 
 @Component({
   selector: 'app-estado-input',
   standalone: true,
-  imports: [Tag, FormsModule],
+  imports: [Tag, FormsModule, IconTrash],
   templateUrl: './estado-input.html',
   styleUrl: './estado-input.scss',
 })

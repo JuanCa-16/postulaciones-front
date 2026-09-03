@@ -1,0 +1,33 @@
+@if (cargando()) {
+  <app-loading />
+} @else if (error()) {
+  <p>{{ error() }}</p>
+}
+
+<div class="formulario-container">
+  <app-header titulo="Inicio de Sesion" subtitulo="Ingresa tus credenciales"></app-header>
+
+  <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
+    <div class="inputs-group">
+      <app-input-field
+        controlName="usuario"
+        label="Usuario*"
+        placeholder="Ej: juan"
+        error="El usuario es obligatorio."
+        [mostrarError]="esCampoInvalido('usuario')"
+      />
+
+      <app-input-field
+        controlName="clave"
+        label="Clave*"
+        placeholder="Ej: juan"
+        error="La clave es obligatorio."
+        [mostrarError]="esCampoInvalido('clave')"
+      />
+    </div>
+
+    <footer class="modal-actions">
+      <button type="submit" class="btn-submit">Ingresar</button>
+    </footer>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<div class="dato" [class.dato-full]="fullWidth()">
+  <span class="etiqueta">{{ label() }}</span>
+
+  @if (url()) {
+    <a [href]="url()" target="_blank" rel="noopener noreferrer" class="link-url">
+      <span>{{ url() }}</span>
+      <span class="icono-link">↗</span>
+    </a>
+  } @else {
+    <div class="valor" [class.badge]="badge()">
+      {{ value() }}
+    </div>
+  }
+</div>

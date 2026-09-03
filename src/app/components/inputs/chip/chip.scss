@@ -1,0 +1,52 @@
+.chip-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: transparent;
+  border: 1px solid #c6d3e4;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  &:hover {
+    border-color: #94a3b8;
+    color: #475569;
+  }
+
+  /* Estado Seleccionado para Modalidad */
+  &:has(input[type='radio']:checked) {
+    background-color: #e0e7ff;
+    border-color: #6366f1;
+    color: #4338ca;
+    font-weight: 600;
+  }
+}
+
+.chip-estado {
+  .color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--chip-color, #000);
+  }
+
+  &:has(input[type='radio']:checked) {
+    background-color: var(--chip-color, var(--primary-color));
+    border-color: var(--chip-color, var(--primary-color));
+    color: #ffffff;
+    font-weight: 600;
+
+    .color-dot {
+      background-color: #ffffff;
+    }
+  }
+}

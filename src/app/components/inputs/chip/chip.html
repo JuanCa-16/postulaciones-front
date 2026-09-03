@@ -1,0 +1,12 @@
+@if (estado(); as estado) {
+  <label class="chip-option chip-estado" [style.--chip-color]="estado.color">
+    <input type="radio" formControlName="estadoId" [value]="estado.id" />
+    <span class="color-dot"></span>
+    <span>{{ estado.nombre }}</span>
+  </label>
+} @else {
+  <label class="chip-option">
+    <input type="radio" [formControlName]="controlName()" [value]="value()" />
+    <span>{{ label() }}</span>
+  </label>
+}

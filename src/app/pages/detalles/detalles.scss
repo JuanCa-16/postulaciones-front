@@ -1,3 +1,5 @@
+@use '../../../styles/mixins' as *;
+
 .detalles-container {
   position: relative;
   width: 100%;
@@ -33,7 +35,6 @@
     margin: 0 auto;
     z-index: 3;
 
-    /* Encabezado Superior */
     .encabezado {
       display: flex;
       justify-content: space-between;
@@ -124,7 +125,6 @@
       }
     }
 
-    /* Grid de Información de la Postulación */
     .contenido {
       position: relative; // Necesario para ubicar los botones flotantes dentro
       display: grid;
@@ -132,14 +132,10 @@
       gap: 16px;
       padding: 24px 20px 20px 20px;
       margin-bottom: 32px;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 
-      /* Botones circulares flotantes en la esquina superior derecha */
+      @include glass-card;
+
       .acciones-card {
         position: absolute;
         top: 14px;
@@ -148,115 +144,6 @@
         align-items: center;
         gap: 8px;
         z-index: 2;
-
-        .btn-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          border: 1px solid transparent;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          user-select: none;
-
-          /* Círculo Lápiz / Editar */
-          &.btn-editar {
-            background: rgba(241, 245, 249, 0.8);
-            color: #64748b;
-            border-color: #cbd5e1;
-
-            &:hover {
-              background: #ffffff;
-              color: #2563eb;
-              border-color: #93c5fd;
-              box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
-              transform: translateY(-1px);
-            }
-          }
-
-          /* Círculo Papelera / Eliminar */
-          &.btn-eliminar {
-            background: rgba(241, 245, 249, 0.8);
-            color: #64748b;
-            border-color: #cbd5e1;
-
-            &:hover {
-              background: #fee2e2;
-              color: #ef4444;
-              border-color: #fca5a5;
-              box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
-              transform: translateY(-1px);
-            }
-          }
-
-          &:active {
-            transform: scale(0.92);
-          }
-        }
-      }
-
-      .dato {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-
-        .etiqueta {
-          font-size: 0.7rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          color: #94a3b8;
-        }
-
-        .valor {
-          font-size: 0.95rem;
-          font-weight: 600;
-          color: #1e293b;
-          word-break: break-word;
-
-          &.badge-modalidad {
-            display: inline-block;
-            width: fit-content;
-            padding: 2px 8px;
-            background: #f1f5f9;
-            border-radius: 6px;
-            color: #475569;
-            font-size: 0.85rem;
-          }
-        }
-
-        &.dato-full {
-          grid-column: 1 / -1;
-          padding-top: 12px;
-          border-top: 1px dashed rgba(203, 213, 225, 0.6);
-
-          .link-url {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--status-color, #2563eb);
-            text-decoration: none;
-            word-break: break-all;
-            transition: opacity 0.2s ease;
-
-            .icono-link {
-              font-size: 0.8rem;
-              transition: transform 0.2s ease;
-            }
-
-            &:hover {
-              opacity: 0.8;
-
-              .icono-link {
-                transform: translate(2px, -2px);
-              }
-            }
-          }
-        }
       }
     }
     /* Sección e Historial con Línea de Tiempo Exterior */

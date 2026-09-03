@@ -6,7 +6,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import registerSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-import { authInterceptor } from './interceptors/auth.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 registerLocaleData(registerSpanish, 'es');
 

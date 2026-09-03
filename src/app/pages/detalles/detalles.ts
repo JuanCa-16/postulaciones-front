@@ -7,10 +7,13 @@ import { Loading } from '../../components/loading/loading';
 import { Postulacion } from '../../interfaces/postulacion.interface';
 import { HistoryCard } from '../../components/history-card/history-card';
 import { DatePipe } from '@angular/common';
+import { IconPencil } from '../../components/icons/pencil.component';
+import { IconTrash } from '../../components/icons/trash.component';
+import { DataField } from "../../components/data-field/data-field";
 
 @Component({
   selector: 'app-detalles',
-  imports: [Tag, Loading, HistoryCard, DatePipe, RouterLink],
+  imports: [Tag, Loading, HistoryCard, DatePipe, RouterLink, IconPencil, IconTrash, DataField],
   templateUrl: './detalles.html',
   styleUrl: './detalles.scss',
 })
@@ -78,5 +81,4 @@ export class Detalles {
         },
       });
   }
-
 }

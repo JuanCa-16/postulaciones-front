@@ -1,87 +1,56 @@
-<div class="formulario-overlay" [style.--status-color]="postulacion()?.estado?.color">
-  <span class="esfera esfera-izquierda"></span>
-  <span class="esfera esfera-derecha"></span>
+<div class="formulario-container">
+  <app-header
+    [titulo]="postulacion() ? 'Editar postulación' : 'Crear nueva postulación'"
+    subtitulo="Ingresa las características y el estado actual de la oferta"
+  ></app-header>
 
-  <div class="formulario-container">
-    <header class="modal-header">
-      <h3>{{ postulacion() ? 'Editar postulación' : 'Crear nueva postulación' }}</h3>
-      <p class="subtitle">Ingresa las características y el estado actual de la oferta</p>
-    </header>
+  <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
+    <div class="inputs-group">
+      <app-input-field
+        controlName="nombreOferta"
+        label="Nombre de la oferta *"
+        placeholder="Ej: Frontend Developer"
+        error="El nombre de la oferta es obligatorio."
+        [mostrarError]="esCampoInvalido('nombreOferta')"
+      />
 
-    <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
-      <!-- Campos de texto -->
-      <div class="inputs-group">
-        <div class="input-container">
-          <small>Nombre de la oferta *</small>
-          <input type="text" formControlName="nombreOferta" placeholder="Ej: Frontend Developer" />
-          @if (esCampoInvalido('nombreOferta')) {
-            <small class="error-input">El nombre de la oferta es obligatorio.</small>
-          }
-        </div>
+      <app-input-field controlName="nombreEmpresa" label="Empresa" placeholder="Ej: Google" />
 
-        <div class="input-container">
-          <small>Empresa</small>
-          <input type="text" formControlName="nombreEmpresa" placeholder="Ej: Google" />
-        </div>
+      <div class="row">
+        <app-input-field controlName="url" label="URL de la oferta" placeholder="https://..." />
 
-        <div class="row">
-          <div class="input-container">
-            <small>URL de la oferta</small>
-            <input type="text" formControlName="url" placeholder="https://..." />
-          </div>
-
-          <div class="input-container">
-            <small>Plataforma / Portal</small>
-            <input type="text" formControlName="paginaAplicacion" placeholder="Ej: LinkedIn" />
-          </div>
-        </div>
+        <app-input-field
+          controlName="paginaAplicacion"
+          label="Plataforma / Portal"
+          placeholder="Ej: LinkedIn"
+        />
       </div>
+    </div>
 
-      <!-- Selección de Modalidad -->
-      <div class="section-group">
-        <small class="section-label">Modalidad *</small>
-        <div class="radios">
-          <label class="chip-option">
-            <input type="radio" formControlName="modalidad" value="REMOTO" />
-            <span>Remoto</span>
-          </label>
-          <label class="chip-option">
-            <input type="radio" formControlName="modalidad" value="HIBRIDO" />
-            <span>Híbrido</span>
-          </label>
-          <label class="chip-option">
-            <input type="radio" formControlName="modalidad" value="PRESENCIAL" />
-            <span>Presencial</span>
-          </label>
-        </div>
-        @if (esCampoInvalido('modalidad')) {
-          <small class="error-input">Selecciona una modalidad.</small>
-        }
-      </div>
+    <app-chip-group
+      label="Modalidad *"
+      error="Selecciona una modalidad."
+      [mostrarError]="esCampoInvalido('modalidad')"
+    >
+      <app-chip controlName="modalidad" label="Remoto" value="REMOTO" />
+      <app-chip controlName="modalidad" label="Híbrido" value="HIBRIDO" />
+      <app-chip controlName="modalidad" label="Presencial" value="PRESENCIAL" />
+    </app-chip-group>
 
-      <!-- Selección de Estado -->
-      <div class="section-group">
-        <small class="section-label">Estado actual *</small>
-        <div class="radios estados-radios">
-          @for (estado of estados(); track estado.id) {
-            <label class="chip-option chip-estado" [style.--chip-color]="estado.color">
-              <input type="radio" formControlName="estadoId" [value]="estado.id" />
-              <span class="color-dot"></span>
-              <span>{{ estado.nombre }}</span>
-            </label>
-          }
-        </div>
-        @if (esCampoInvalido('estadoId')) {
-          <small class="error-input">Selecciona un estado.</small>
-        }
-      </div>
+    <app-chip-group
+      label="Estado actual *"
+      error="Selecciona un estado."
+      [mostrarError]="esCampoInvalido('estadoId')"
+    >
+      @for (estado of estados(); track estado.id) {
+        <app-chip controlName="estadoId" [estado]="estado" />
+      }
+    </app-chip-group>
 
-      <!-- Acciones Footer -->
-      <footer class="modal-actions">
-        <button type="submit" class="btn-submit">
-          {{ postulacion() ? 'Guardar cambios' : 'Crear postulación' }}
-        </button>
-      </footer>
-    </form>
-  </div>
+    <footer class="modal-actions">
+      <button type="submit" class="btn-submit">
+        {{ postulacion() ? 'Guardar cambios' : 'Crear postulación' }}
+      </button>
+    </footer>
+  </form>
 </div>

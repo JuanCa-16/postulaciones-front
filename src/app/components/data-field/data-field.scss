@@ -1,0 +1,69 @@
+:host {
+  display: block;
+
+  &.dato-full {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .etiqueta {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+  }
+
+  .valor {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    word-break: break-word;
+
+    &.badge {
+      display: inline-block;
+      width: fit-content;
+      padding: 2px 8px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      color: #475569;
+      font-size: 0.85rem;
+    }
+  }
+
+  &.dato-full {
+    padding-top: 12px;
+    border-top: 1px dashed rgba(203, 213, 225, 0.6);
+
+    .link-url {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--status-color, #2563eb);
+      text-decoration: none;
+      word-break: break-all;
+      transition: opacity 0.2s ease;
+
+      .icono-link {
+        font-size: 0.8rem;
+        transition: transform 0.2s ease;
+      }
+
+      &:hover {
+        opacity: 0.8;
+
+        .icono-link {
+          transform: translate(2px, -2px);
+        }
+      }
+    }
+  }
+}

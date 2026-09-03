@@ -4,11 +4,12 @@ import { EditarEstado, Estado, EstadoInputEvent } from '../../interfaces/estado.
 import { EstadoService } from '../../services/estado-service';
 import { finalize } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
+import { Header } from "../../components/header/header";
 
 @Component({
   selector: 'app-estados',
   standalone: true,
-  imports: [EstadoInput, Loading],
+  imports: [EstadoInput, Loading, Header],
   templateUrl: './estados.html',
   styleUrl: './estados.scss',
 })

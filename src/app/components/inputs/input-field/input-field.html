@@ -1,0 +1,14 @@
+<div class="input-container">
+  <small>{{ label() }}</small>
+
+  <input
+    [type]="type()"
+    [formControlName]="controlName()"
+    [placeholder]="placeholder()"
+    [class.is-invalid]="mostrarError()"
+  />
+
+  @if (mostrarError() && error()) {
+    <small class="error-input">{{ error() }}</small>
+  }
+</div>
