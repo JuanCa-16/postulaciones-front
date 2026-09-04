@@ -2,24 +2,27 @@
   <header>
     <h1>Mis Postulaciones</h1>
     <div class="acciones-header">
-      <!-- Botón Estados con Tuerca y Texto -->
+      <button type="button" class="btn btn-primary" [routerLink]="['/agregar']">
+        <app-icon-plus></app-icon-plus>
+        <span>Agregar</span>
+      </button>
+
       <button type="button" class="btn btn-secondary" [routerLink]="['/estados']">
         <app-icon-gear></app-icon-gear>
         <span>Estados</span>
       </button>
 
-      <!-- Botón Agregar con Símbolo + -->
-      <button type="button" class="btn btn-primary" [routerLink]="['/agregar']">
-        <app-icon-plus></app-icon-plus>
-        <span>Agregar</span>
+      <div class="divider"></div>
+
+      <button type="button" class="btn btn-logout" (click)="cerrarSesion()">
+        <app-icon-row></app-icon-row>
+        <span>Salir</span>
       </button>
     </div>
   </header>
 
   @if (cargando()) {
     <app-loading />
-  } @else if (error()) {
-    <p>{{ error() }}</p>
   } @else if (postulaciones().length > 0) {
     <div class="postulaciones">
       @for (postulacion of postulaciones(); track postulacion.id) {

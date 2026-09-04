@@ -81,37 +81,7 @@
     }
 
     // Chip por defecto
-    .chip-default {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 8px;
-      border-radius: 14px;
-      border: 1px solid #cbd5e1;
-      background-color: transparent;
-      color: #64748b;
-      font-size: 0.7rem;
-      font-weight: 600;
-      cursor: pointer;
-      user-select: none;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-
-      input[type='checkbox'] {
-        display: none;
-      }
-
-      &:hover {
-        border-color: #94a3b8;
-        color: #475569;
-      }
-
-      &.active {
-        background-color: #e0e7ff;
-        border-color: #6366f1;
-        color: #4338ca;
-      }
-    }
+    
 
     // Botón de guardar
     .btn-guardar-check {

@@ -4,7 +4,8 @@ import { EditarEstado, Estado, EstadoInputEvent } from '../../interfaces/estado.
 import { EstadoService } from '../../services/estado-service';
 import { finalize } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
-import { Header } from "../../components/header/header";
+import { Header } from '../../components/header/header';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-estados',
@@ -15,10 +16,10 @@ import { Header } from "../../components/header/header";
 })
 export class Estados implements OnInit {
   private readonly estadoService = inject(EstadoService);
+  private readonly toastr = inject(ToastrService);
 
   estados = signal<Estado[]>([]);
   cargando = signal(false);
-  error = signal<string | null>(null);
 
   color = signal<string>('#0b0b0b');
   texto = signal<string>('');
@@ -30,7 +31,6 @@ export class Estados implements OnInit {
 
   obtenerEstados(): void {
     this.cargando.set(true);
-    this.error.set(null);
     this.estadoService
       .obtenerEstados()
       .pipe(
@@ -44,7 +44,7 @@ export class Estados implements OnInit {
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error?.message ?? 'Error al obtener los estados');
+          this.toastr.error(err.error?.message ?? 'Error al obtener tus estados', 'Error');
         },
       });
   }
@@ -61,7 +61,6 @@ export class Estados implements OnInit {
     if (Object.keys(payload).length === 0) return;
 
     this.cargando.set(true);
-    this.error.set(null);
 
     this.estadoService
       .editarEstado(event.id, payload)
@@ -72,20 +71,24 @@ export class Estados implements OnInit {
       )
       .subscribe({
         next: () => {
+          this.toastr.success('Estado editado con éxito', 'Éxito');
+
           this.obtenerEstados();
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error?.message ?? 'Error al actualizar el estado');
+          this.toastr.error(err.error?.message ?? 'Error al actualizar tus estados', 'Error');
         },
       });
   }
 
   procesarGuardado(event: EstadoInputEvent): void {
-    if (!event.titulo) return;
+    if (!event.titulo) {
+      this.toastr.error('Debes ingresar un nombre al estado', 'Error');
+      return;
+    }
 
     this.cargando.set(true);
-    this.error.set(null);
 
     this.estadoService
       .crearEstado({
@@ -100,18 +103,19 @@ export class Estados implements OnInit {
       )
       .subscribe({
         next: () => {
+          this.toastr.success('Estado creado con éxito', 'Éxito');
+
           this.obtenerEstados();
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error?.message ?? 'Error al crear el estado');
+          this.toastr.error(err.error?.message ?? 'Error al crear tu estado', 'Error');
         },
       });
   }
 
   eliminar(id: number): void {
     this.cargando.set(true);
-    this.error.set(null);
 
     this.estadoService
       .eliminarEstado(id)
@@ -122,11 +126,12 @@ export class Estados implements OnInit {
       )
       .subscribe({
         next: () => {
+          this.toastr.success('Estado eliminado con éxito', 'Éxito');
           this.obtenerEstados();
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error?.message ?? 'Error al eliminar');
+          this.toastr.error(err.error?.message ?? 'Error al eliminar', 'Error');
         },
       });
   }

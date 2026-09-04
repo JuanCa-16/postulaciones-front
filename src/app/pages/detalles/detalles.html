@@ -3,8 +3,6 @@
   <div class="detalles">
     @if (cargando()) {
       <app-loading />
-    } @else if (error()) {
-      <p>{{ error() }}</p>
     }
     @if (postulacion(); as p) {
       <header class="encabezado">

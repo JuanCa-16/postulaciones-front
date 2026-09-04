@@ -9,6 +9,7 @@ import { IconHouseComponent } from '../icons/icon-house.component';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { IconDateComponent } from '../icons/icon-date.component';
 import { RouterLink } from '@angular/router';
+import { IconRow } from '../icons/row.component';
 
 @Component({
   selector: 'app-job-card',
@@ -23,15 +24,11 @@ import { RouterLink } from '@angular/router';
     TitleCasePipe,
     DatePipe,
     RouterLink,
+    IconRow
   ],
   templateUrl: './job-card.html',
   styleUrl: './job-card.scss',
 })
 export class JobCard {
   postulacion = input.required<Postulacion>();
-  eliminar = output<number>();
-
-  eliminarPostulacion(): void {
-    this.eliminar.emit(this.postulacion().id);
-  }
 }

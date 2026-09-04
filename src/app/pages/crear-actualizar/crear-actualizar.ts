@@ -7,6 +7,7 @@ import { PostulacionService } from '../../services/postulacionService';
 import { finalize } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crear-actualizar',
@@ -19,12 +20,13 @@ export class CrearActualizar implements OnInit {
   private readonly postulacionService = inject(PostulacionService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toastr = inject(ToastrService);
+
   postulacion = signal<Postulacion | null>(null);
   idPostulacion!: number;
 
   estados = signal<Estado[]>([]);
   cargando = signal(false);
-  error = signal<string | null>(null);
 
   ngOnInit(): void {
     this.obtenerEstados();
@@ -38,7 +40,7 @@ export class CrearActualizar implements OnInit {
 
   obtenerEstados(): void {
     this.cargando.set(true);
-    this.error.set(null);
+
     this.estadoService
       .obtenerEstados()
       .pipe(
@@ -52,14 +54,13 @@ export class CrearActualizar implements OnInit {
         },
         error: (err) => {
           console.log(err);
-          this.error.set(err.error.message);
+          this.toastr.error(err.error?.message ?? 'Error al obtener tus estados', 'Error');
         },
       });
   }
 
   crearPostulacion(postulacion: CrearPostulacion): void {
     this.cargando.set(true);
-    this.error.set(null);
     this.postulacionService
       .crearPostulacion(postulacion)
       .pipe(
@@ -69,18 +70,18 @@ export class CrearActualizar implements OnInit {
       )
       .subscribe({
         next: () => {
+          this.toastr.success('Postulación creada con éxito', 'Éxito');
           this.router.navigate(['/']);
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error.message);
+          this.toastr.error(err.error?.message ?? 'Error al crear', 'Error');
         },
       });
   }
 
   obtenerPostulacion(id: number): void {
     this.cargando.set(true);
-    this.error.set(null);
 
     this.postulacionService
       .obtenerDetallePostulacion(id)
@@ -95,6 +96,7 @@ export class CrearActualizar implements OnInit {
         },
         error: (err) => {
           console.error(err);
+          this.toastr.error(err.error?.message ?? 'Error al obtener', 'Error');
           this.router.navigate(['/']);
         },
       });
@@ -102,7 +104,6 @@ export class CrearActualizar implements OnInit {
 
   editarPostulacion(postulacion: CrearPostulacion): void {
     this.cargando.set(true);
-    this.error.set(null);
 
     this.postulacionService
       .editarPostulacion(this.idPostulacion, postulacion)
@@ -113,11 +114,12 @@ export class CrearActualizar implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.toastr.success('Postulación actualizada con éxito', 'Éxito');
+          this.router.navigate(['/detalles', this.idPostulacion]);
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error?.message ?? 'No se pudo actualizar la postulación');
+          this.toastr.error(err.error?.message ?? 'Error al actualizar', 'Error');
         },
       });
   }

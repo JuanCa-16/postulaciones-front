@@ -7,19 +7,21 @@ import { Loading } from '../../components/loading/loading';
 import { Router, RouterLink } from '@angular/router';
 import { IconGear } from '../../components/icons/gear.component';
 import { IconPlus } from '../../components/icons/plus.component';
+import { IconRow } from '../../components/icons/row.component';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-inicio',
-  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus],
+  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
 export class Inicio implements OnInit {
   private readonly postulacionService = inject(PostulacionService);
   private readonly router = inject(Router);
+  private readonly toastr = inject(ToastrService);
 
   postulaciones = signal<Postulacion[]>([]);
   cargando = signal(false);
-  error = signal<string | null>(null);
 
   ngOnInit(): void {
     this.obtenerPostulaciones();
@@ -27,7 +29,6 @@ export class Inicio implements OnInit {
 
   obtenerPostulaciones(): void {
     this.cargando.set(true);
-    this.error.set(null);
 
     this.postulacionService
       .obtenerPostulaciones()
@@ -43,31 +44,13 @@ export class Inicio implements OnInit {
 
         error: (err) => {
           console.error(err);
-          this.error.set(err.error.message);
+          this.toastr.error(err.error?.message ?? 'Error al ingresar', 'Error');
         },
       });
   }
 
-  eliminarPostulacion(id: number): void {
-    this.cargando.set(true);
-    this.error.set(null);
-
-    this.postulacionService
-      .eliminarPostulacion(id)
-      .pipe(
-        finalize(() => {
-          this.cargando.set(false);
-        }),
-      )
-      .subscribe({
-        next: () => {
-          this.postulaciones.update((postulaciones) =>
-            postulaciones.filter((postulacion) => postulacion.id !== id),
-          );
-        },
-        error: (err) => {
-          this.error.set(err.error.message);
-        },
-      });
+  cerrarSesion(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

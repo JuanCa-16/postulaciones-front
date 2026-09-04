@@ -20,4 +20,5 @@ export class InputField {
   type = input<string>('text');
   error = input<string | null>(null);
   mostrarError = input<boolean>(false);
+  autocomplete = input<string>('off');
 }

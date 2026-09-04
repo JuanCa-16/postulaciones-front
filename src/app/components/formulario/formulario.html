@@ -43,7 +43,7 @@
       [mostrarError]="esCampoInvalido('estadoId')"
     >
       @for (estado of estados(); track estado.id) {
-        <app-chip controlName="estadoId" [estado]="estado" />
+        <app-chip controlName="estadoId" [estado]="estado" tipo="estado" />
       }
     </app-chip-group>
 

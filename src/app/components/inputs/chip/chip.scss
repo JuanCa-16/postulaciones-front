@@ -29,6 +29,16 @@
     color: #4338ca;
     font-weight: 600;
   }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  &.active {
+    background-color: #e0e7ff;
+    border-color: #6366f1;
+    color: #4338ca;
+  }
 }
 
 .chip-estado {
@@ -50,3 +60,4 @@
     }
   }
 }
+

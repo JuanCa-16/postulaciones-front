@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { ControlContainer, ReactiveFormsModule } from '@angular/forms';
 import { Estado } from '../../../interfaces/estado.interface';
 
@@ -15,8 +15,18 @@ import { Estado } from '../../../interfaces/estado.interface';
   ],
 })
 export class Chip {
-  controlName = input.required<string>();
+  controlName = input<string>();
   value = input<string>();
   label = input<string>();
   estado = input<Estado>();
+
+  tipo = input<'radio' | 'estado' | 'checkbox'>('radio');
+
+  checked = input<boolean>(false);
+  checkedChange = output<boolean>();
+
+  onCheckboxChange(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.checkedChange.emit(isChecked);
+  }
 }

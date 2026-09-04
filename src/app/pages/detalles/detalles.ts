@@ -9,7 +9,8 @@ import { HistoryCard } from '../../components/history-card/history-card';
 import { DatePipe } from '@angular/common';
 import { IconPencil } from '../../components/icons/pencil.component';
 import { IconTrash } from '../../components/icons/trash.component';
-import { DataField } from "../../components/data-field/data-field";
+import { DataField } from '../../components/data-field/data-field';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detalles',
@@ -21,9 +22,9 @@ export class Detalles {
   private readonly route = inject(ActivatedRoute);
   private readonly postulacionService = inject(PostulacionService);
   private readonly router = inject(Router);
+  private readonly toastr = inject(ToastrService);
 
   cargando = signal(false);
-  error = signal<string | null>(null);
   postulacion = signal<Postulacion | undefined>(undefined);
   activarColor = computed(() => this.postulacion()?.estado.color);
   idPostulacion!: number;
@@ -40,7 +41,6 @@ export class Detalles {
 
   obtenerDetalles(id: number): void {
     this.cargando.set(true);
-    this.error.set(null);
 
     this.postulacionService
       .obtenerDetallePostulacion(id)
@@ -55,7 +55,7 @@ export class Detalles {
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error.message);
+          this.toastr.error(err.error?.message ?? 'Error al obtener el detalle', 'Error');
           this.router.navigate(['/']);
         },
       });
@@ -63,7 +63,6 @@ export class Detalles {
 
   eliminarPostulacion(): void {
     this.cargando.set(true);
-    this.error.set(null);
 
     this.postulacionService
       .eliminarPostulacion(this.idPostulacion)
@@ -75,9 +74,10 @@ export class Detalles {
       .subscribe({
         next: () => {
           this.router.navigate(['/']);
+          this.toastr.success('Postulación eliminada con éxito', 'Eliminada');
         },
         error: (err) => {
-          this.error.set(err.error.message);
+          this.toastr.error(err.error?.message ?? 'Error al Eliminar', 'Error');
         },
       });
   }

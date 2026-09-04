@@ -1,12 +1,20 @@
-@if (estado(); as estado) {
-  <label class="chip-option chip-estado" [style.--chip-color]="estado.color">
-    <input type="radio" formControlName="estadoId" [value]="estado.id" />
+@if (tipo() === 'estado' && estado()) {
+  <!-- Variante 1: Radio con color dinámico (Estados) -->
+  <label class="chip-option chip-estado" [style.--chip-color]="estado()!.color">
+    <input type="radio" [formControlName]="controlName()!" [value]="estado()!.id" />
     <span class="color-dot"></span>
-    <span>{{ estado.nombre }}</span>
+    <span>{{ estado()!.nombre }}</span>
+  </label>
+} @else if (tipo() === 'checkbox') {
+  <!-- Variante 2: Checkbox con NgModel / Binding bidireccional (Defecto) -->
+  <label class="chip-option chip-default" [class.active]="checked()" [title]="label()">
+    <input type="checkbox" [checked]="checked()" (change)="onCheckboxChange($event)" />
+    <span>{{ label() }}</span>
   </label>
 } @else {
+  <!-- Variante 3: Radio button genérico (Por defecto) -->
   <label class="chip-option">
-    <input type="radio" [formControlName]="controlName()" [value]="value()" />
+    <input type="radio" [formControlName]="controlName()!" [value]="value()" />
     <span>{{ label() }}</span>
   </label>
 }

@@ -6,6 +6,7 @@
     [formControlName]="controlName()"
     [placeholder]="placeholder()"
     [class.is-invalid]="mostrarError()"
+    [attr.autocomplete]="autocomplete()"
   />
 
   @if (mostrarError() && error()) {

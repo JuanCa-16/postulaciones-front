@@ -5,7 +5,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UsuarioService } from '../../services/usuario-service';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
-import { Loading } from "../../components/loading/loading";
+import { Loading } from '../../components/loading/loading';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,18 @@ import { Loading } from "../../components/loading/loading";
   styleUrl: './login.scss',
 })
 export class Login {
-  formulario = new FormGroup({
-    usuario: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    clave: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  });
-
   private readonly userService = inject(UsuarioService);
   private readonly router = inject(Router);
+  private readonly toastr = inject(ToastrService);
   cargando = signal(false);
-  error = signal<string | null>(null);
+
+  formulario = new FormGroup({
+    usuario: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    clave: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+  });
 
   guardar(): void {
     if (this.formulario.invalid) {
@@ -32,7 +36,7 @@ export class Login {
 
     const datos = this.formulario.getRawValue();
     this.cargando.set(true);
-    this.error.set(null);
+
     this.userService
       .login({ correo: datos.usuario, clave: datos.clave })
       .pipe(
@@ -46,12 +50,11 @@ export class Login {
             localStorage.setItem('token', respuesta.token);
           }
 
-          // 4. Rediriges a la pantalla principal
           this.router.navigate(['/']);
         },
         error: (err) => {
           console.error(err);
-          this.error.set(err.error?.message ?? 'Error al ingresar');
+          this.toastr.error(err.error?.message ?? 'Error al ingresar', 'Error');
         },
       });
   }
