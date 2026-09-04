@@ -7,6 +7,9 @@
     @if (postulacion(); as p) {
       <header class="encabezado">
         <div class="titulo-wrapper">
+          <button type="button" class="btn-icon btn-editar" title="Regresar" routerLink="/">
+            <app-icon-row></app-icon-row>
+          </button>
           <h1>{{ p.nombreOferta }}</h1>
           <app-tag [estado]="p.estado" />
         </div>
@@ -67,20 +70,10 @@
 </div>
 
 @if (mostrarModalEliminar()) {
-  <div class="modal-backdrop" (click)="cancelarEliminar()">
-    <div class="modal-card" (click)="$event.stopPropagation()">
-      <h3>¿Eliminar postulación?</h3>
-      <p>Esta acción no se puede deshacer.</p>
-
-      <div class="modal-acciones">
-        <button type="button" class="btn btn-secondary" (click)="cancelarEliminar()">
-          Cancelar
-        </button>
-        <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()">
-          <app-icon-trash></app-icon-trash>
-          Eliminar
-        </button>
-      </div>
-    </div>
-  </div>
+  <app-modal
+    titulo="¿Eliminar postulación?"
+    subtitulo="Esta acción no se puede deshacer."
+    (onCancelar)="cancelarEliminar()"
+    (onConfirmar)="confirmarEliminacion()"
+  ></app-modal>
 }

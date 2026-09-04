@@ -21,12 +21,33 @@
     </div>
   </header>
 
+  <div class="filtros">
+    <app-chip-group label="Filtros por Estado">
+      @for (estado of estados(); track estado.id) {
+        <app-chip
+          tipo="estado"
+          [estado]="estado"
+          [checked]="esEstadoSeleccionado(estado.id)"
+          (checkedChange)="toggleEstado(estado.id, $event)"
+        />
+      }
+    </app-chip-group>
+  </div>
+
+   <footer class="modal-footer">
+      <div class="separador">
+        <span>{{postulaciones().length}} encontradas</span>
+      </div>
+    </footer>
+
   @if (cargando()) {
     <app-loading />
   } @else if (postulaciones().length > 0) {
     <div class="postulaciones">
-      @for (postulacion of postulaciones(); track postulacion.id) {
+      @for (postulacion of postulacionesFiltradas(); track postulacion.id) {
         <app-job-card [postulacion]="postulacion"></app-job-card>
+      } @empty {
+        <p>No hay postulaciones que coincidan con los filtros seleccionados.</p>
       }
     </div>
   } @else {

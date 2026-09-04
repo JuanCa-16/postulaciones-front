@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 20px;
 
+
   header {
     display: flex;
     justify-content: space-between;
@@ -24,8 +25,47 @@
       }
     }
   }
-  .postulaciones {
+
+  .filtros {
     margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  // Pie con sección de creación
+  .modal-footer {
+    flex-shrink: 0;
+    margin-top: 12px;
+
+    .separador {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 12px;
+
+      &::before,
+      &::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px dashed #cbd5e1;
+      }
+
+      span {
+        padding: 0 10px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+    }
+
+    .agregar-estado-wrapper {
+      width: 100%;
+    }
+  }
+  .postulaciones {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
     gap: 20px;

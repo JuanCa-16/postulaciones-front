@@ -10,7 +10,7 @@ import { Estado } from '../../../interfaces/estado.interface';
   viewProviders: [
     {
       provide: ControlContainer, // 1. Buscamos el contenedor de formularios
-      useFactory: () => inject(ControlContainer, { skipSelf: true }), // 2. Omitimos nuestro propio nivel ({ skipSelf: true }) y tomamos el formulario del padre
+      useFactory: () => inject(ControlContainer, { skipSelf: true, optional: true }), // 2. Omitimos nuestro propio nivel ({ skipSelf: true }) y tomamos el formulario del padre
     },
   ],
 })

@@ -24,7 +24,7 @@
       (click)="guardar()"
       title="Guardar cambios"
     >
-     <app-icon-check></app-icon-check>
+      <app-icon-check></app-icon-check>
     </button>
 
     <!-- Botón de Eliminar (Papelera) -->
@@ -32,7 +32,7 @@
       <button
         type="button"
         class="btn-icon btn-eliminar"
-        (click)="eliminar()"
+        (click)="abrirModalEliminar()"
         title="Eliminar estado"
       >
         <app-icon-trash></app-icon-trash>
@@ -45,3 +45,12 @@
     <app-tag [estadoManual]="true" [titulo]="titulo()" [color]="color()" />
   </div>
 </div>
+
+@if (mostrarModalEliminar()) {
+  <app-modal
+    titulo="¿Eliminar Estado?"
+    subtitulo="Esta acción no se puede deshacer."
+    (onCancelar)="cancelarEliminar()"
+    (onConfirmar)="confirmarEliminacion()"
+  ></app-modal>
+}

@@ -1,6 +1,17 @@
-  <header class="modal-header">
-    <div>
-      <h3>{{titulo()}}</h3>
-      <p class="subtitle">{{subtitulo()}}</p>
-    </div>
-  </header>
+<header class="modal-header">
+  <div>
+    <h3>{{ titulo() }}</h3>
+    <p class="subtitle">{{ subtitulo() }}</p>
+  </div>
+
+  @if (url()) {
+    <button
+      type="button"
+      class="btn-icon btn-editar"
+      title="Regresar"
+      [routerLink]="url()"
+    >
+      <app-icon-row></app-icon-row>
+    </button>
+  }
+</header>

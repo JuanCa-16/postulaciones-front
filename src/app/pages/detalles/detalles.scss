@@ -51,6 +51,10 @@
         gap: 12px;
         flex-wrap: wrap;
 
+        .btn-editar {
+          transform: scaleX(-1);
+        }
+
         h1 {
           margin: 0;
           font-size: 1.6rem;
@@ -175,65 +179,5 @@
         border-radius: 2px;
       }
     }
-  }
-}
-
-/* Modal de confirmación de eliminación */
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  animation: fadeIn 0.2s ease;
-
-  .modal-card {
-    width: 100%;
-    max-width: 360px;
-    padding: 24px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow:
-      0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    p {
-      margin: 0;
-      font-size: 0.875rem;
-      color: #64748b;
-    }
-
-    .modal-acciones {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      margin-top: 12px;
-    }
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }

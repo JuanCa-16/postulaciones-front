@@ -52,7 +52,8 @@
     background-color: var(--chip-color, #000);
   }
 
-  &:has(input[type='radio']:checked) {
+  &:has(input[type='radio']:checked),
+  &.active {
     background-color: var(--chip-color, var(--primary-color));
     border-color: var(--chip-color, var(--primary-color));
     color: #ffffff;

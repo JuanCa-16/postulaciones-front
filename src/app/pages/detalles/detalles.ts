@@ -11,10 +11,23 @@ import { IconPencil } from '../../components/icons/pencil.component';
 import { IconTrash } from '../../components/icons/trash.component';
 import { DataField } from '../../components/data-field/data-field';
 import { ToastrService } from 'ngx-toastr';
+import { Modal } from '../../components/modal/modal';
+import { IconRow } from "../../components/icons/row.component";
 
 @Component({
   selector: 'app-detalles',
-  imports: [Tag, Loading, HistoryCard, DatePipe, RouterLink, IconPencil, IconTrash, DataField],
+  imports: [
+    Tag,
+    Loading,
+    HistoryCard,
+    DatePipe,
+    RouterLink,
+    IconPencil,
+    IconTrash,
+    DataField,
+    Modal,
+    IconRow
+],
   templateUrl: './detalles.html',
   styleUrl: './detalles.scss',
 })

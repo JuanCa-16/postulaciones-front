@@ -1,0 +1,16 @@
+ <div class="modal-backdrop" (click)="cancelarEliminar()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <h3>{{titulo()}}</h3>
+      <p>{{subtitulo()}}</p>
+
+      <div class="modal-acciones">
+        <button type="button" class="btn btn-secondary" (click)="cancelarEliminar()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()">
+          <app-icon-trash></app-icon-trash>
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>

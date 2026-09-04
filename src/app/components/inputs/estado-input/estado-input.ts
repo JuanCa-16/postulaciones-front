@@ -1,15 +1,16 @@
-import { Component, computed, input, linkedSignal, output } from '@angular/core';
+import { Component, computed, input, linkedSignal, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Tag } from '../../tag/tag';
 import { EstadoInputEvent } from '../../../interfaces/estado.interface';
 import { IconTrash } from '../../icons/trash.component';
 import { Chip } from '../chip/chip';
 import { IconCheck } from '../../icons/check.component';
+import { Modal } from "../../modal/modal";
 
 @Component({
   selector: 'app-estado-input',
   standalone: true,
-  imports: [Tag, FormsModule, IconTrash, Chip, IconCheck],
+  imports: [Tag, FormsModule, IconTrash, Chip, IconCheck, Modal],
   templateUrl: './estado-input.html',
   styleUrl: './estado-input.scss',
 })
@@ -76,5 +77,23 @@ export class EstadoInput {
     if (this.id()) {
       this.alEliminar.emit(this.id()!);
     }
+  }
+
+  mostrarModalEliminar = signal(false);
+
+  // Abre el modal
+  abrirModalEliminar() {
+    this.mostrarModalEliminar.set(true);
+  }
+
+  // Cierra el modal
+  cancelarEliminar() {
+    this.mostrarModalEliminar.set(false);
+  }
+
+  // Confirma la acción de eliminar
+  confirmarEliminacion() {
+    this.mostrarModalEliminar.set(false);
+    this.eliminar(); // Tu método existente
   }
 }

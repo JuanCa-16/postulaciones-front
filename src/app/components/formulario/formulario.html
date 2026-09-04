@@ -2,6 +2,7 @@
   <app-header
     [titulo]="postulacion() ? 'Editar postulación' : 'Crear nueva postulación'"
     subtitulo="Ingresa las características y el estado actual de la oferta"
+    [url]="postulacion() ? `/detalles/${postulacion()?.id}` : '/'"
   ></app-header>
 
   <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
