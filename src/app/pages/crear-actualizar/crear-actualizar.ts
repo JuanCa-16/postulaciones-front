@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Formulario } from '../../components/formulario/formulario';
 import { EstadoService } from '../../services/estado-service';
 import { Estado } from '../../interfaces/estado.interface';
@@ -8,6 +8,7 @@ import { finalize } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { BgStatusService } from '../../services/bg-status-service';
 
 @Component({
   selector: 'app-crear-actualizar',
@@ -15,12 +16,13 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './crear-actualizar.html',
   styleUrl: './crear-actualizar.scss',
 })
-export class CrearActualizar implements OnInit {
+export class CrearActualizar implements OnInit, OnDestroy {
   private readonly estadoService = inject(EstadoService);
   private readonly postulacionService = inject(PostulacionService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly toastr = inject(ToastrService);
+  private bgStatusService = inject(BgStatusService);
 
   postulacion = signal<Postulacion | null>(null);
   idPostulacion!: number;
@@ -36,6 +38,10 @@ export class CrearActualizar implements OnInit {
       this.idPostulacion = Number(id);
       this.obtenerPostulacion(Number(id));
     }
+  }
+
+  ngOnDestroy() {
+    this.bgStatusService.setStatusColor(null);
   }
 
   obtenerEstados(): void {
@@ -93,6 +99,7 @@ export class CrearActualizar implements OnInit {
       .subscribe({
         next: (postulacion) => {
           this.postulacion.set(postulacion);
+          this.bgStatusService.setStatusColor(postulacion.estado.color);
         },
         error: (err) => {
           console.error(err);

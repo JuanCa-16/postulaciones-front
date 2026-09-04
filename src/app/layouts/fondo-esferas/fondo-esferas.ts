@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { BgStatusService } from '../../services/bg-status-service';
 
 @Component({
   selector: 'app-fondo-esferas',
@@ -8,5 +9,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './fondo-esferas.scss',
 })
 export class FondoEsferas {
-
+  protected bgStatusService = inject(BgStatusService);
 }

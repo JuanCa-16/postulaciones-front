@@ -12,14 +12,17 @@
   color: #64748b;
   transition: all 0.2s ease;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
   input[type='radio'] {
     display: none;
   }
 
-  &:hover {
-    border-color: #94a3b8;
-    color: #475569;
+  @media (hover: hover) {
+    &:hover {
+      border-color: #94a3b8;
+      color: #475569;
+    }
   }
 
   /* Estado Seleccionado para Modalidad */
@@ -60,4 +63,3 @@
     }
   }
 }
-
