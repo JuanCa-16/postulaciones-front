@@ -81,4 +81,22 @@ export class Detalles {
         },
       });
   }
+
+  mostrarModalEliminar = signal(false);
+
+  // Abre el modal
+  abrirModalEliminar() {
+    this.mostrarModalEliminar.set(true);
+  }
+
+  // Cierra el modal
+  cancelarEliminar() {
+    this.mostrarModalEliminar.set(false);
+  }
+
+  // Confirma la acción de eliminar
+  confirmarEliminacion() {
+    this.mostrarModalEliminar.set(false);
+    this.eliminarPostulacion(); // Tu método existente
+  }
 }
