@@ -19,6 +19,7 @@
     height: 75%;
     background-color: var(--status-color, var(--primary-color));
     border-radius: 25%;
+    pointer-events: none;
   }
 
   .info-container {
@@ -116,7 +117,10 @@
     }
   }
 
-  &:hover {
+  /* Hover en PC + Click/Tap en Mobile sin alterar estilos */
+  &:hover,
+  &:active,
+  &:focus-within {
     box-shadow: 0 0 10px -5px var(--status-color, var(--primary-color));
 
     .info-container {
