@@ -18,6 +18,16 @@
         <app-icon-row></app-icon-row>
         <span>Salir</span>
       </button>
+
+      <button
+        type="button"
+        class="btn"
+        [class.btn-primary]="pingService.activo()"
+        [class.btn-secondary]="!pingService.activo()"
+        (click)="pingService.toggleAutoPing()"
+      >
+        <span>{{ pingService.activo() ? 'Ping: ON' : 'Ping: OFF' }}</span>
+      </button>
     </div>
   </header>
 
@@ -34,11 +44,23 @@
     </app-chip-group>
   </div>
 
-   <footer class="modal-footer">
-      <div class="separador">
-        <span>{{postulacionesFiltradas().length}} encontradas</span>
-      </div>
-    </footer>
+  <div class="buscador">
+    <div class="input-container">
+      <small>Buscar postulación</small>
+      <input
+        type="text"
+        placeholder="Ej. Frontend Developer, Google..."
+        [value]="busqueda()"
+        (input)="actualizarBusqueda($event)"
+      />
+    </div>
+  </div>
+
+  <footer class="modal-footer">
+    <div class="separador">
+      <span>{{ postulacionesFiltradas().length }} encontradas</span>
+    </div>
+  </footer>
 
   @if (cargando()) {
     <app-loading />

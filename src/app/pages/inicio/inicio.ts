@@ -2,7 +2,7 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { JobCard } from '../../components/job-card/job-card';
 import { PostulacionService } from '../../services/postulacionService';
 import { Postulacion } from '../../interfaces/postulacion.interface';
-import { finalize } from 'rxjs';
+import { finalize, forkJoin } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
 import { Router, RouterLink } from '@angular/router';
 import { IconGear } from '../../components/icons/gear.component';
@@ -13,6 +13,7 @@ import { ChipGroup } from '../../components/chip-group/chip-group';
 import { Chip } from '../../components/inputs/chip/chip';
 import { EstadoService } from '../../services/estado-service';
 import { Estado } from '../../interfaces/estado.interface';
+import { PingService } from '../../services/ping-service';
 @Component({
   selector: 'app-inicio',
   imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip],
@@ -24,57 +25,80 @@ export class Inicio implements OnInit {
   private readonly estadoService = inject(EstadoService);
   private readonly router = inject(Router);
   private readonly toastr = inject(ToastrService);
+  protected readonly pingService = inject(PingService);
 
   postulaciones = signal<Postulacion[]>([]);
   estados = signal<Estado[]>([]);
   estadosSeleccionados = signal<number[]>([]);
   cargando = signal(false);
+  busqueda = signal<string>('');
 
   ngOnInit(): void {
-    this.obtenerPostulaciones();
-    this.obtenerEstados();
+    // this.obtenerPostulaciones();
+    // this.obtenerEstados();
+    this.cargarDatosIniciales();
   }
 
-  obtenerPostulaciones(): void {
+  // obtenerPostulaciones(): void {
+  //   this.cargando.set(true);
+
+  //   this.postulacionService
+  //     .obtenerPostulaciones()
+  //     .pipe(
+  //       finalize(() => {
+  //         this.cargando.set(false);
+  //       }),
+  //     )
+  //     .subscribe({
+  //       next: (postulaciones) => {
+  //         this.postulaciones.set(postulaciones);
+  //       },
+
+  //       error: (err) => {
+  //         console.error(err);
+  //         this.toastr.error(err.error?.message ?? 'Error al conusltar postulaciones', 'Error');
+  //       },
+  //     });
+  // }
+
+  // obtenerEstados(): void {
+  //   this.cargando.set(true);
+
+  //   this.estadoService
+  //     .obtenerEstados()
+  //     .pipe(
+  //       finalize(() => {
+  //         this.cargando.set(false);
+  //       }),
+  //     )
+  //     .subscribe({
+  //       next: (estados) => {
+  //         this.estados.set(estados);
+  //       },
+
+  //       error: (err) => {
+  //         console.error(err);
+  //         this.toastr.error(err.error?.message ?? 'Error al consultar estados', 'Error');
+  //       },
+  //     });
+  // }
+
+  cargarDatosIniciales(): void {
     this.cargando.set(true);
 
-    this.postulacionService
-      .obtenerPostulaciones()
-      .pipe(
-        finalize(() => {
-          this.cargando.set(false);
-        }),
-      )
+    forkJoin({
+      postulaciones: this.postulacionService.obtenerPostulaciones(),
+      estados: this.estadoService.obtenerEstados(),
+    })
+      .pipe(finalize(() => this.cargando.set(false)))
       .subscribe({
-        next: (postulaciones) => {
+        next: ({ postulaciones, estados }) => {
           this.postulaciones.set(postulaciones);
-        },
-
-        error: (err) => {
-          console.error(err);
-          this.toastr.error(err.error?.message ?? 'Error al conusltar postulaciones', 'Error');
-        },
-      });
-  }
-
-  obtenerEstados(): void {
-    this.cargando.set(true);
-
-    this.estadoService
-      .obtenerEstados()
-      .pipe(
-        finalize(() => {
-          this.cargando.set(false);
-        }),
-      )
-      .subscribe({
-        next: (estados) => {
           this.estados.set(estados);
         },
-
         error: (err) => {
           console.error(err);
-          this.toastr.error(err.error?.message ?? 'Error al consultar estados', 'Error');
+          this.toastr.error('Error al cargar la información inicial', 'Error');
         },
       });
   }
@@ -98,16 +122,30 @@ export class Inicio implements OnInit {
     });
   }
 
-  postulacionesFiltradas = computed(() => {
-    const seleccionados = this.estadosSeleccionados();
-    const lista = this.postulaciones();
+  actualizarBusqueda(event: Event): void {
+    const valor = (event.target as HTMLInputElement).value;
+    this.busqueda.set(valor);
+  }
 
-    // Si no hay ningún estado seleccionado, mostramos todas las postulaciones
-    if (seleccionados.length === 0) {
-      return lista;
+  postulacionesFiltradas = computed(() => {
+    const texto = this.busqueda().toLowerCase().trim();
+    const seleccionados = this.estadosSeleccionados();
+    let lista = this.postulaciones();
+
+    // Filtro 1: Por texto (nombre de la oferta o empresa)
+    if (texto) {
+      lista = lista.filter((p) => {
+        const ofertaMatch = p.nombreOferta?.toLowerCase().includes(texto);
+        const empresaMatch = p.nombreEmpresa?.toLowerCase().includes(texto);
+        return ofertaMatch || empresaMatch;
+      });
     }
 
-    // Filtra las postulaciones cuyo estado.id esté dentro de los seleccionados
-    return lista.filter((p) => p.estado && seleccionados.includes(p.estado.id));
+    // Filtro 2: Por chips de estado
+    if (seleccionados.length > 0) {
+      lista = lista.filter((p) => p.estado && seleccionados.includes(p.estado.id));
+    }
+
+    return lista;
   });
 }
