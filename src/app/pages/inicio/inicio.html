@@ -31,6 +31,21 @@
     </div>
   </header>
 
+  <div class="buscador">
+    <div class="input-container">
+      <small>Buscar postulación</small>
+      <input
+        type="text"
+        placeholder="Ej. Frontend Developer, Google..."
+        [value]="busqueda()"
+        (input)="actualizarBusqueda($event)"
+      />
+    </div>
+    <button type="button" (click)="limpiar()" class="btn-icon btn-eliminar" title="Eliminar estado">
+      <app-icon-trash></app-icon-trash>
+    </button>
+  </div>
+
   <div class="filtros">
     <app-chip-group label="Filtros por Estado">
       @for (estado of estados(); track estado.id) {
@@ -42,18 +57,6 @@
         />
       }
     </app-chip-group>
-  </div>
-
-  <div class="buscador">
-    <div class="input-container">
-      <small>Buscar postulación</small>
-      <input
-        type="text"
-        placeholder="Ej. Frontend Developer, Google..."
-        [value]="busqueda()"
-        (input)="actualizarBusqueda($event)"
-      />
-    </div>
   </div>
 
   <footer class="modal-footer">

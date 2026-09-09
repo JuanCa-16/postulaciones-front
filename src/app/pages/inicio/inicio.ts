@@ -14,9 +14,10 @@ import { Chip } from '../../components/inputs/chip/chip';
 import { EstadoService } from '../../services/estado-service';
 import { Estado } from '../../interfaces/estado.interface';
 import { PingService } from '../../services/ping-service';
+import { IconTrash } from '../../components/icons/trash.component';
 @Component({
   selector: 'app-inicio',
-  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip],
+  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip, IconTrash],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
@@ -37,6 +38,10 @@ export class Inicio implements OnInit {
     // this.obtenerPostulaciones();
     // this.obtenerEstados();
     this.cargarDatosIniciales();
+  }
+
+  limpiar() {
+    this.busqueda.set('');
   }
 
   // obtenerPostulaciones(): void {

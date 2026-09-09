@@ -27,6 +27,10 @@
 
   .buscador {
     margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
     .input-container {
       display: flex;
       flex-direction: column;
@@ -112,4 +116,5 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
     gap: 20px;
   }
+
 }
