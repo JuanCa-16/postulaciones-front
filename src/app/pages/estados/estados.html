@@ -25,7 +25,7 @@
     </div>
   </main>
 
-  @if (estados().length < 5) {
+  @if (estados().length < 5 || !demoService.estaEnModoDemo()) {
     <footer class="modal-footer">
       <div class="separador">
         <span>Crear nuevo estado</span>

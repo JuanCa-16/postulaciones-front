@@ -4,8 +4,9 @@ import { CanActivateFn, Router } from '@angular/router';
 export const publicGuard: CanActivateFn = () => {
   const router = inject(Router);
   const token = localStorage.getItem('token');
+  const demo = localStorage.getItem('authMode') === 'demo';
 
-  if (!token) {
+  if (!token && !demo) {
     return true; // No hay sesión, permite entrar al login
   }
 

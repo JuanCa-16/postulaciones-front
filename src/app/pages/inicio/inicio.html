@@ -1,6 +1,10 @@
 <div class="inicio-container">
   <header>
     <h1>Mis Postulaciones</h1>
+
+    @if (demoService.estaEnModoDemo()) {
+      <app-tag titulo="VERSIÓN DEMO"></app-tag>
+    }
     <div class="acciones-header">
       <button type="button" class="btn btn-primary" [routerLink]="['/agregar']">
         <app-icon-plus></app-icon-plus>
@@ -19,15 +23,17 @@
         <span>Salir</span>
       </button>
 
-      <button
-        type="button"
-        class="btn"
-        [class.btn-primary]="pingService.activo()"
-        [class.btn-secondary]="!pingService.activo()"
-        (click)="pingService.toggleAutoPing()"
-      >
-        <span>{{ pingService.activo() ? 'Ping: ON' : 'Ping: OFF' }}</span>
-      </button>
+      @if (!demoService.estaEnModoDemo()) {
+        <button
+          type="button"
+          class="btn"
+          [class.btn-primary]="pingService.activo()"
+          [class.btn-secondary]="!pingService.activo()"
+          (click)="pingService.toggleAutoPing()"
+        >
+          <span>{{ pingService.activo() ? 'Ping: ON' : 'Ping: OFF' }}</span>
+        </button>
+      }
     </div>
   </header>
 

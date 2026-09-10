@@ -12,7 +12,8 @@ import { IconTrash } from '../../components/icons/trash.component';
 import { DataField } from '../../components/data-field/data-field';
 import { ToastrService } from 'ngx-toastr';
 import { Modal } from '../../components/modal/modal';
-import { IconRow } from "../../components/icons/row.component";
+import { IconRow } from '../../components/icons/row.component';
+import { DemoService } from '../../services/demo-service';
 
 @Component({
   selector: 'app-detalles',
@@ -26,8 +27,8 @@ import { IconRow } from "../../components/icons/row.component";
     IconTrash,
     DataField,
     Modal,
-    IconRow
-],
+    IconRow,
+  ],
   templateUrl: './detalles.html',
   styleUrl: './detalles.scss',
 })
@@ -36,11 +37,13 @@ export class Detalles {
   private readonly postulacionService = inject(PostulacionService);
   private readonly router = inject(Router);
   private readonly toastr = inject(ToastrService);
+  protected readonly demoService = inject(DemoService);
 
   cargando = signal(false);
   postulacion = signal<Postulacion | undefined>(undefined);
   activarColor = computed(() => this.postulacion()?.estado.color);
   idPostulacion!: number;
+  esDemo = this.demoService.estaEnModoDemo();
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -55,8 +58,11 @@ export class Detalles {
   obtenerDetalles(id: number): void {
     this.cargando.set(true);
 
-    this.postulacionService
-      .obtenerDetallePostulacion(id)
+    const postulacion$ = this.esDemo
+      ? this.demoService.obtenerDetallePostulacion(id)
+      : this.postulacionService.obtenerDetallePostulacion(id);
+
+    postulacion$
       .pipe(
         finalize(() => {
           this.cargando.set(false);
@@ -75,6 +81,11 @@ export class Detalles {
   }
 
   eliminarPostulacion(): void {
+    if (this.esDemo) {
+      this.toastr.warning('No se permite en modo DEMO', 'Advertencia');
+      return;
+    }
+
     this.cargando.set(true);
 
     this.postulacionService

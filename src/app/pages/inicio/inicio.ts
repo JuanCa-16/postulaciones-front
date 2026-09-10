@@ -15,9 +15,11 @@ import { EstadoService } from '../../services/estado-service';
 import { Estado } from '../../interfaces/estado.interface';
 import { PingService } from '../../services/ping-service';
 import { IconTrash } from '../../components/icons/trash.component';
+import { DemoService } from '../../services/demo-service';
+import { Tag } from "../../components/tag/tag";
 @Component({
   selector: 'app-inicio',
-  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip, IconTrash],
+  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip, IconTrash, Tag],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
@@ -27,6 +29,7 @@ export class Inicio implements OnInit {
   private readonly router = inject(Router);
   private readonly toastr = inject(ToastrService);
   protected readonly pingService = inject(PingService);
+  protected readonly demoService = inject(DemoService);
 
   postulaciones = signal<Postulacion[]>([]);
   estados = signal<Estado[]>([]);
@@ -90,10 +93,13 @@ export class Inicio implements OnInit {
 
   cargarDatosIniciales(): void {
     this.cargando.set(true);
+    const esDemo = this.demoService.estaEnModoDemo();
 
     forkJoin({
-      postulaciones: this.postulacionService.obtenerPostulaciones(),
-      estados: this.estadoService.obtenerEstados(),
+      postulaciones: esDemo
+        ? this.demoService.obtenerPostulaciones()
+        : this.postulacionService.obtenerPostulaciones(),
+      estados: esDemo ? this.demoService.obtenerEstados() : this.estadoService.obtenerEstados(),
     })
       .pipe(finalize(() => this.cargando.set(false)))
       .subscribe({
@@ -110,6 +116,7 @@ export class Inicio implements OnInit {
 
   cerrarSesion(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('authMode');
     this.router.navigate(['/login']);
   }
 

@@ -9,6 +9,7 @@ import { Loading } from '../../components/loading/loading';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BgStatusService } from '../../services/bg-status-service';
+import { DemoService } from '../../services/demo-service';
 
 @Component({
   selector: 'app-crear-actualizar',
@@ -23,12 +24,15 @@ export class CrearActualizar implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly toastr = inject(ToastrService);
   private bgStatusService = inject(BgStatusService);
+  protected readonly demoService = inject(DemoService);
 
   postulacion = signal<Postulacion | null>(null);
   idPostulacion!: number;
 
   estados = signal<Estado[]>([]);
   cargando = signal(false);
+
+  esDemo = this.demoService.estaEnModoDemo();
 
   ngOnInit(): void {
     this.obtenerEstados();
@@ -47,8 +51,11 @@ export class CrearActualizar implements OnInit, OnDestroy {
   obtenerEstados(): void {
     this.cargando.set(true);
 
-    this.estadoService
-      .obtenerEstados()
+    const estados$ = this.esDemo
+      ? this.demoService.obtenerEstados()
+      : this.estadoService.obtenerEstados();
+
+    estados$
       .pipe(
         finalize(() => {
           this.cargando.set(false);
@@ -66,6 +73,10 @@ export class CrearActualizar implements OnInit, OnDestroy {
   }
 
   crearPostulacion(postulacion: CrearPostulacion): void {
+    if (this.esDemo) {
+      this.toastr.warning('No se permite en modo DEMO', 'Advertencia');
+      return;
+    }
     this.cargando.set(true);
     this.postulacionService
       .crearPostulacion(postulacion)
@@ -89,8 +100,11 @@ export class CrearActualizar implements OnInit, OnDestroy {
   obtenerPostulacion(id: number): void {
     this.cargando.set(true);
 
-    this.postulacionService
-      .obtenerDetallePostulacion(id)
+    const postulacion$ = this.esDemo
+      ? this.demoService.obtenerDetallePostulacion(id)
+      : this.postulacionService.obtenerDetallePostulacion(id);
+
+    postulacion$
       .pipe(
         finalize(() => {
           this.cargando.set(false);
@@ -110,6 +124,10 @@ export class CrearActualizar implements OnInit, OnDestroy {
   }
 
   editarPostulacion(postulacion: CrearPostulacion): void {
+    if (this.esDemo) {
+      this.toastr.warning('No se permite en modo DEMO', 'Advertencia');
+      return;
+    }
     this.cargando.set(true);
 
     this.postulacionService

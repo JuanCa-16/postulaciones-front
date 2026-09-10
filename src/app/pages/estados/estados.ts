@@ -6,6 +6,7 @@ import { finalize } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
 import { Header } from '../../components/header/header';
 import { ToastrService } from 'ngx-toastr';
+import { DemoService } from '../../services/demo-service';
 
 @Component({
   selector: 'app-estados',
@@ -17,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class Estados implements OnInit {
   private readonly estadoService = inject(EstadoService);
   private readonly toastr = inject(ToastrService);
+  protected readonly demoService = inject(DemoService);
 
   estados = signal<Estado[]>([]);
   cargando = signal(false);
@@ -24,6 +26,7 @@ export class Estados implements OnInit {
   color = signal<string>('#0b0b0b');
   texto = signal<string>('');
   defecto = signal<boolean>(false);
+  esDemo = this.demoService.estaEnModoDemo();
 
   ngOnInit(): void {
     this.obtenerEstados();
@@ -31,8 +34,12 @@ export class Estados implements OnInit {
 
   obtenerEstados(): void {
     this.cargando.set(true);
-    this.estadoService
-      .obtenerEstados()
+
+    const estados$ = this.esDemo
+      ? this.demoService.obtenerEstados()
+      : this.estadoService.obtenerEstados();
+
+    estados$
       .pipe(
         finalize(() => {
           this.cargando.set(false);
@@ -50,6 +57,10 @@ export class Estados implements OnInit {
   }
 
   procesarEdicion(event: EstadoInputEvent): void {
+    if (this.esDemo) {
+      this.toastr.warning('No se permite en modo DEMO', 'Advertencia');
+      return;
+    }
     if (!event.id) return;
 
     const payload: EditarEstado = {};
@@ -83,6 +94,11 @@ export class Estados implements OnInit {
   }
 
   procesarGuardado(event: EstadoInputEvent): void {
+    if (this.esDemo) {
+      this.toastr.warning('No se permite en modo DEMO', 'Advertencia');
+      return;
+    }
+
     if (!event.titulo) {
       this.toastr.error('Debes ingresar un nombre al estado', 'Error');
       return;
@@ -115,6 +131,11 @@ export class Estados implements OnInit {
   }
 
   eliminar(id: number): void {
+    if (this.esDemo) {
+      this.toastr.warning('No se permite en modo DEMO', 'Advertencia');
+      return;
+    }
+
     this.cargando.set(true);
 
     this.estadoService

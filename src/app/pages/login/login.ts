@@ -63,4 +63,11 @@ export class Login {
     const control = this.formulario.get(campo);
     return !!(control && control.invalid && control.touched);
   }
+
+  ingresarModoDemo(): void {
+    localStorage.setItem('authMode', 'demo');
+    localStorage.removeItem('token');
+
+    this.router.navigate(['/']);
+  }
 }
