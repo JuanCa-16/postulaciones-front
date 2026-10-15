@@ -1,11 +1,24 @@
 <div class="inicio-container">
   <header>
-    <h1>Mis Postulaciones</h1>
+    <h1>Postulaciones</h1>
 
     @if (demoService.estaEnModoDemo()) {
       <app-tag titulo="VERSIÓN DEMO"></app-tag>
     }
     <div class="acciones-header">
+      <button
+        type="button"
+        class="btn-icon btn-editar"
+        (click)="themeService.toggle()"
+        [title]="themeService.oscuro() ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'"
+        [attr.aria-label]="themeService.oscuro() ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'"
+      >
+        @if (themeService.oscuro()) {
+          <app-icon-sun />
+        } @else {
+          <app-icon-moon />
+        }
+      </button>
       <button type="button" class="btn btn-primary" [routerLink]="['/agregar']">
         <app-icon-plus></app-icon-plus>
         <span>Agregar</span>
@@ -39,7 +52,6 @@
 
   <div class="buscador">
     <div class="input-container">
-      <small>Buscar postulación</small>
       <input
         type="text"
         placeholder="Ej. Frontend Developer, Google..."

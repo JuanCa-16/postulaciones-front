@@ -1,3 +1,5 @@
+@use '../../../styles/mixins' as *;
+
 :host {
   display: block;
   position: relative;
@@ -9,11 +11,8 @@
   flex-direction: column;
   gap: 10px;
   padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
   border-radius: 10px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+  @include glass-card;
 
   /* Punto del Timeline posicionado exactamente sobre la línea exterior */
   &::before {
@@ -24,8 +23,8 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: var(--status-color, var(--primary-color));
-    box-shadow: 0 0 0 3px #ffffff, 0 0 0 4px rgba(203, 213, 225, 0.8);
+    background-color: var(--status-color, var(--main-color));
+    box-shadow: 0 0 0 5px color-mix(var(--status-color, var(--main-color)), transparent 85%);
     z-index: 2;
   }
 
@@ -36,10 +35,10 @@
 
     .campo-nombre {
       font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      color: #0f172a;
+      color: var(--text-primary);
     }
 
     .fecha {
@@ -47,8 +46,8 @@
       align-items: center;
       gap: 5px;
       font-size: 0.75rem;
-      font-weight: 500;
-      color: #94a3b8;
+      font-weight: 400;
+      color: var(--text-secondary);
     }
   }
 
@@ -60,32 +59,32 @@
     .bloque-valor {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 8px;
 
       .label {
         font-size: 0.65rem;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: #94a3b8;
+        color: var(--text-secondary);
       }
 
       .texto-valor {
         font-size: 0.9rem;
-        font-weight: 600;
-        color: #64748b;
+        font-weight: 500;
+        color: var(--text-primary);
       }
 
       &.nuevo {
         .texto-valor {
-          color: #2563eb;
+          color: var(--main-color);
         }
       }
     }
 
     .flecha {
       font-size: 1.1rem;
-      color: #cbd5e1;
+      color: var(--text-secondary);
       font-weight: 400;
       margin-top: 10px;
       user-select: none;

@@ -17,9 +17,12 @@ import { PingService } from '../../services/ping-service';
 import { IconTrash } from '../../components/icons/trash.component';
 import { DemoService } from '../../services/demo-service';
 import { Tag } from "../../components/tag/tag";
+import { ThemeService } from '../../services/theme-service';
+import { IconSun } from '../../components/icons/icon-sun.component';
+import { IconMoon } from '../../components/icons/icon-moon.component';
 @Component({
   selector: 'app-inicio',
-  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip, IconTrash, Tag],
+  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip, IconTrash, Tag, IconSun, IconMoon],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
@@ -30,6 +33,7 @@ export class Inicio implements OnInit {
   private readonly toastr = inject(ToastrService);
   protected readonly pingService = inject(PingService);
   protected readonly demoService = inject(DemoService);
+  protected readonly themeService = inject(ThemeService);
 
   postulaciones = signal<Postulacion[]>([]);
   estados = signal<Estado[]>([]);

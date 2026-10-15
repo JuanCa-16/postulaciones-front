@@ -8,21 +8,17 @@
   height: fit-content;
 
   border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 70%);
+  border: 1px solid color-mix(in srgb, var(--status-color, var(--main-color)), transparent 70%);
 
   /* Mantiene el color de fondo dinámico */
-  background: color-mix(
-    in srgb,
-    var(--status-color, var(--primary-color)),
-    var(--mix-color, #ffffff) 85%
-  );
-  color: var(--status-color, var(--primary-color));
+  background: color-mix(in srgb, var(--status-color, var(--main-color)), transparent 95%);
+  color: var(--status-color, var(--main-color));
 
   .indicator {
     width: 8px; // Indicador un poco más grande
     height: 8px;
     border-radius: 50%;
-    background-color: var(--status-color, var(--primary-color));
+    background-color: var(--status-color, var(--main-color));
     flex-shrink: 0;
   }
 

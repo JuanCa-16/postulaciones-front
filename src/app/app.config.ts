@@ -1,4 +1,10 @@
-import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  LOCALE_ID,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -8,6 +14,7 @@ import registerSpanish from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { provideToastr } from 'ngx-toastr';
+import { ThemeService } from './services/theme-service';
 
 registerLocaleData(registerSpanish, 'es');
 
@@ -23,6 +30,9 @@ export const appConfig: ApplicationConfig = {
       preventDuplicates: true,
       progressBar: true,
       closeButton: true,
+    }),
+    provideAppInitializer(() => {
+      inject(ThemeService);
     }),
   ],
 };

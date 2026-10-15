@@ -4,12 +4,13 @@
   position: relative;
   width: 100%;
   min-height: 100dvh;
+  background-color: var(--background);
 
   &::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--transparente, rgba(255, 255, 255, 0.4));
+    background: var(--background-transparent);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     z-index: 2;
@@ -21,8 +22,8 @@
     top: 0;
     transform: translateY(-50%);
     width: 100%;
-    height: 20%;
-    background-color: var(--status-color, var(--primary-color));
+    height: 45%;
+    background-color:  color-mix(in srgb, var(--status-color, var(--main-color)), transparent 65%);
     border-radius: 5%;
     z-index: 1;
     pointer-events: none;
@@ -51,15 +52,11 @@
         gap: 12px;
         flex-wrap: wrap;
 
-        .btn-editar {
-          transform: scaleX(-1);
-        }
-
         h1 {
           margin: 0;
           font-size: 1.6rem;
           font-weight: 700;
-          color: #0f172a;
+          color: var(--text-primary);
           letter-spacing: -0.02em;
         }
       }
@@ -69,65 +66,6 @@
         align-items: center;
         gap: 8px;
 
-        .btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 8px 14px;
-          border-radius: 10px;
-          font-size: 0.8rem;
-          font-weight: 600;
-          cursor: pointer;
-          border: 1px solid transparent;
-          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          user-select: none;
-
-          svg {
-            flex-shrink: 0;
-            transition: transform 0.2s ease;
-          }
-
-          /* Botón Editar: Sutil, limpio con borde y elevación suave */
-          &.btn-editar {
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #cbd5e1;
-            color: #334155;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-
-            &:hover {
-              background: #ffffff;
-              border-color: #94a3b8;
-              color: #0f172a;
-              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-
-              svg {
-                transform: rotate(8deg);
-              }
-            }
-          }
-
-          /* Botón Eliminar: Tono rojizo tenue que destaca solo al hacer hover */
-          &.btn-eliminar {
-            background: rgba(254, 226, 226, 0.5);
-            border-color: rgba(252, 165, 165, 0.4);
-            color: #ef4444;
-
-            &:hover {
-              background: #fee2e2;
-              border-color: #fca5a5;
-              color: #dc2626;
-              box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);
-
-              svg {
-                transform: scale(1.1);
-              }
-            }
-          }
-
-          &:active {
-            transform: scale(0.96);
-          }
-        }
       }
     }
 
@@ -156,7 +94,6 @@
     .titulo-historial {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #0f172a;
       margin-bottom: 16px;
     }
 
@@ -175,7 +112,7 @@
         top: 18px;
         bottom: 24px;
         width: 2px;
-        background: #cbd5e1;
+        background: var(--input-focused-border);
         border-radius: 2px;
       }
     }

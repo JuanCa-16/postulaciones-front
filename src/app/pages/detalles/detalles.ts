@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Modal } from '../../components/modal/modal';
 import { IconRow } from '../../components/icons/row.component';
 import { DemoService } from '../../services/demo-service';
+import { BgStatusService } from '../../services/bg-status-service';
 
 @Component({
   selector: 'app-detalles',
@@ -38,12 +39,13 @@ export class Detalles {
   private readonly router = inject(Router);
   private readonly toastr = inject(ToastrService);
   protected readonly demoService = inject(DemoService);
-
+protected bgStatusService = inject(BgStatusService);
   cargando = signal(false);
   postulacion = signal<Postulacion | undefined>(undefined);
-  activarColor = computed(() => this.postulacion()?.estado.color);
+ activarColor = computed(() => this.postulacion()?.estado.color);
   idPostulacion!: number;
   esDemo = this.demoService.estaEnModoDemo();
+
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

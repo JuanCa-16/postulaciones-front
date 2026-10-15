@@ -1,4 +1,7 @@
-<div class="detalles-container" [style.--status-color]="activarColor()">
+<div
+  class="detalles-container"
+  [style.--status-color]="bgStatusService.statusColor() || activarColor()"
+>
   <div class="esfera"></div>
   <div class="detalles">
     @if (cargando()) {
@@ -7,7 +10,7 @@
     @if (postulacion(); as p) {
       <header class="encabezado">
         <div class="titulo-wrapper">
-          <button type="button" class="btn-icon btn-editar" title="Regresar" routerLink="/">
+          <button type="button" class="btn-icon btn-arrow" title="Regresar" routerLink="/">
             <app-icon-row></app-icon-row>
           </button>
           <h1>{{ p.nombreOferta }}</h1>

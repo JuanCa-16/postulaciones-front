@@ -4,12 +4,12 @@
   gap: 6px;
   padding: 6px 12px;
   background-color: transparent;
-  border: 1px solid #c6d3e4;
-  border-radius: 14px;
+  border: 1px solid var(--input-focused-border);
+  border-radius: 0.7rem;
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #64748b;
+  color: var(--text-secondary);
   transition: all 0.2s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -20,17 +20,15 @@
 
   @media (hover: hover) {
     &:hover {
-      border-color: #94a3b8;
-      color: #475569;
+      background-color: color-mix(var(--text-secondary), transparent 95%);
     }
   }
 
   /* Estado Seleccionado para Modalidad */
   &:has(input[type='radio']:checked) {
-    background-color: #e0e7ff;
-    border-color: #6366f1;
-    color: #4338ca;
-    font-weight: 600;
+    background-color: color-mix(var(--main-color), transparent 85%);
+    border-color: var(--main-color);
+    color: var(--main-color);
   }
 
   input[type='checkbox'] {
@@ -38,9 +36,9 @@
   }
 
   &.active {
-    background-color: #e0e7ff;
-    border-color: #6366f1;
-    color: #4338ca;
+    background-color: color-mix(var(--main-color), transparent 85%);
+    border-color: var(--main-color);
+    color: var(--main-color);
   }
 }
 
@@ -49,18 +47,17 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--chip-color, #000);
+    background-color: var(--chip-color, var(--main-color));
   }
 
   &:has(input[type='radio']:checked),
   &.active {
-    background-color: var(--chip-color, var(--primary-color));
-    border-color: var(--chip-color, var(--primary-color));
-    color: #ffffff;
-    font-weight: 600;
+    background-color: color-mix(in srgb, var(--chip-color, var(--main-color)), transparent 90%);
+    border-color: var(--chip-color, var(--main-color));
+    color: var(--chip-color, var(--main-color));
 
     .color-dot {
-      background-color: #ffffff;
+      background-color: var(--chip-color, var(--main-color));
     }
   }
 }

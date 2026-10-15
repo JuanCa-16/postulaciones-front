@@ -1,22 +1,13 @@
+@use '../../../../styles/mixins' as *;
+
 .container {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(8px);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
   width: 100%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-
-  &:focus-within {
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.08);
-  }
+  @include glass-card();
 
   .estado-input-container {
     display: flex;
@@ -34,9 +25,9 @@
       input[type='text'] {
         border: 1px solid transparent;
         outline: none;
-        background: rgba(241, 245, 249, 0.8);
+        background: var(--input-background);
         font-size: 0.875rem;
-        color: #0f172a;
+        color: var(--text-primary);
         font-weight: 500;
         width: 100%;
         border-radius: 6px;
@@ -44,12 +35,12 @@
         transition: all 0.2s ease;
 
         &:focus {
-          background: #ffffff;
-          border-color: #cbd5e1;
+          background: transparent;
+          border-color: var(--input-focused-border);
         }
 
         &::placeholder {
-          color: #94a3b8;
+          color: var(--text-secondary);
         }
       }
     }
@@ -61,10 +52,7 @@
       height: 26px;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow:
-        0 0 0 2px #ffffff,
-        0 2px 5px rgba(0, 0, 0, 0.15);
-      cursor: pointer;
+      box-shadow: 0 0 0 1px var(--input-focused-border);
       flex-shrink: 0;
 
       input[type='color'] {
@@ -80,9 +68,6 @@
       }
     }
 
-    // Chip por defecto
-    
-
     // Botón de guardar
     .btn-guardar-check {
       display: flex;
@@ -92,8 +77,8 @@
       height: 28px;
       border-radius: 50%;
       border: none;
-      background-color: #10b981;
-      color: #ffffff;
+      background-color: var(--main-color);
+      color: var(--background);
       cursor: pointer;
       flex-shrink: 0;
 
@@ -109,12 +94,10 @@
       }
 
       &:hover:not(:disabled) {
-        background-color: #059669;
-        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+        background-color: var(--main-color);
       }
     }
   }
-
 
   // 6. Área de Vista Previa (Inferior)
   .preview-footer {
@@ -123,12 +106,12 @@
     //justify-content: space-between;
     gap: 12px;
     padding-top: 8px;
-    border-top: 1px dashed rgba(203, 213, 225, 0.6); // Separador tenue de puntos
+    border-top: 1px dashed var(--text-secondary); // Separador tenue de puntos
 
     .preview-label {
       font-size: 0.7rem;
       font-weight: 600;
-      color: #94a3b8;
+      color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }

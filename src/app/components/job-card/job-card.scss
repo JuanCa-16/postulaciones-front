@@ -6,18 +6,18 @@
   gap: 5px;
   align-self: stretch;
   border-radius: 12px;
-  background: #f3f3f3;
+  background: var(--background);
   overflow: hidden;
-  border: 1px dashed color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 60%);
+  border: 1px solid color-mix(in srgb, var(--status-color, var(--main-color)), transparent 70%);
 
   .esfera {
     position: absolute;
-    left: 50%;
+    right: 50%;
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
     height: 75%;
-    background-color: var(--status-color, var(--primary-color));
+    background-color: color-mix(in srgb, var(--status-color, var(--main-color)), transparent 80%);
     border-radius: 25%;
     pointer-events: none;
   }
@@ -28,7 +28,7 @@
     flex-direction: column;
     align-items: flex-start;
     align-self: stretch;
-    background: var(--transparente);
+    background: transparent;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     gap: 0;
@@ -39,7 +39,7 @@
       position: absolute;
       inset: 0;
       z-index: -1;
-      background: var(--transparente);
+      background: var(--background-transparent);
       backdrop-filter: blur(40px);
       -webkit-backdrop-filter: blur(40px);
     }
@@ -64,7 +64,7 @@
       align-items: flex-start;
       gap: 10px;
       align-self: stretch;
-      background: color-mix(in srgb, var(--status-color, var(--primary-color)), transparent 95%);
+      background: color-mix(in srgb, var(--status-color, var(--main-color)), transparent 95%);
       border-radius: 6px;
       max-height: 0;
       opacity: 0;
@@ -89,12 +89,16 @@
           justify-content: center;
           align-items: center;
           gap: 4px;
-          color: var(--status-color, var(--primary-color));
+          color: var(--status-color, var(--main-color));
+
+          p {
+            color: var(--status-color, var(--main-color));
+          }
 
           &.url {
-            color: var(--status-color, var(--primary-color));
+            color: var(--status-color, var(--main-color));
             a {
-              color: var(--status-color, var(--primary-color));
+              color: var(--status-color, var(--main-color));
               text-decoration: none;
             }
           }
@@ -121,7 +125,7 @@
   &:hover,
   &:active,
   &:focus-within {
-    box-shadow: 0 0 10px -5px var(--status-color, var(--primary-color));
+    box-shadow: 0 0 10px -5px var(--status-color, var(--main-color));
 
     .info-container {
       gap: 12px;

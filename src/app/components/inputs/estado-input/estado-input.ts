@@ -6,11 +6,12 @@ import { IconTrash } from '../../icons/trash.component';
 import { Chip } from '../chip/chip';
 import { IconCheck } from '../../icons/check.component';
 import { Modal } from "../../modal/modal";
+import { InputField } from '../input-field/input-field';
 
 @Component({
   selector: 'app-estado-input',
   standalone: true,
-  imports: [Tag, FormsModule, IconTrash, Chip, IconCheck, Modal],
+  imports: [Tag, FormsModule, IconTrash, Chip, IconCheck, Modal, InputField],
   templateUrl: './estado-input.html',
   styleUrl: './estado-input.scss',
 })

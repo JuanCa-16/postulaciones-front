@@ -1,7 +1,9 @@
 .inicio-container {
   display: flex;
+  height: 100%;
   flex-direction: column;
   padding: 20px;
+  background-color: var(--background);
 
   header {
     display: flex;
@@ -19,7 +21,7 @@
       .divider {
         width: 1px;
         height: 24px;
-        background-color: #cbd5e1;
+        background-color: var(--text-secondary);
         margin: 0 2px;
       }
     }
@@ -33,40 +35,34 @@
 
     .input-container {
       display: flex;
+      flex: 1;
+      min-width: 0;
       flex-direction: column;
       gap: 4px;
-      width: 100%;
-      background: rgba(241, 245, 249, 0.8);
+
+      background: var(--input-background);
       border: 1px solid transparent;
       padding: 8px 12px;
       border-radius: 8px;
       transition: all 0.2s ease;
 
       &:focus-within {
-        background: #ffffff;
-        border-color: #cbd5e1;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      }
-
-      small {
-        font-size: 0.7rem;
-        font-weight: 600;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        background: transparent;
+        border-color: var(--input-focused-border);
       }
 
       input {
         border: none;
         outline: none;
         background: transparent;
-        color: #0f172a;
+        color: var(--text-primary);
         font-size: 0.95rem;
         font-weight: 500;
         width: 100%;
+        padding: 4px 0;
 
         &::placeholder {
-          color: #94a3b8;
+          color: var(--text-secondary);
         }
       }
     }
@@ -94,14 +90,14 @@
       &::after {
         content: '';
         flex: 1;
-        border-bottom: 1px dashed #cbd5e1;
+        border-bottom: 1px dashed var(--text-secondary);
       }
 
       span {
         padding: 0 10px;
         font-size: 0.7rem;
         font-weight: 700;
-        color: #64748b;
+        color: var(--text-secondary);
         text-transform: uppercase;
         letter-spacing: 0.6px;
       }
@@ -112,9 +108,9 @@
     }
   }
   .postulaciones {
+    background-color: var(--background);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
     gap: 20px;
   }
-
 }

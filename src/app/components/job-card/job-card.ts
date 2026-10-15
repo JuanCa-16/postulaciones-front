@@ -1,4 +1,4 @@
-import { Component, input, Input, output } from '@angular/core';
+import { Component, inject, input, Input, output } from '@angular/core';
 import { Tag } from '../tag/tag';
 import { Postulacion } from '../../interfaces/postulacion.interface';
 import { IconBuildingComponent } from '../icons/icon-building.component';
@@ -8,8 +8,9 @@ import { IconPcComponent } from '../icons/icon-pc.component';
 import { IconHouseComponent } from '../icons/icon-house.component';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { IconDateComponent } from '../icons/icon-date.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IconRow } from '../icons/row.component';
+import { BgStatusService } from '../../services/bg-status-service';
 
 @Component({
   selector: 'app-job-card',
@@ -24,11 +25,19 @@ import { IconRow } from '../icons/row.component';
     TitleCasePipe,
     DatePipe,
     RouterLink,
-    IconRow
+    IconRow,
   ],
   templateUrl: './job-card.html',
   styleUrl: './job-card.scss',
 })
 export class JobCard {
+  protected bgStatusService = inject(BgStatusService);
+  private router = inject(Router);
   postulacion = input.required<Postulacion>();
+
+  verDetalle() {
+    const item = this.postulacion();
+    this.bgStatusService.setStatusColor(item.estado.color);
+    this.router.navigate(['/detalles', item.id]);
+  }
 }

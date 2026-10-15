@@ -54,7 +54,7 @@
 
     <!-- Único botón "Ver detalle" abajo a la derecha -->
     <div class="acciones-card">
-      <button type="button" class="btn-clear" [routerLink]="['/detalles', postulacion().id]">
+      <button type="button" class="btn-clear" (click)="verDetalle()">
         <span>Ver detalle</span>
         <app-icon-row></app-icon-row>
       </button>
