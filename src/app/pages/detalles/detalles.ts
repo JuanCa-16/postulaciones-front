@@ -39,13 +39,12 @@ export class Detalles {
   private readonly router = inject(Router);
   private readonly toastr = inject(ToastrService);
   protected readonly demoService = inject(DemoService);
-protected bgStatusService = inject(BgStatusService);
+  protected bgStatusService = inject(BgStatusService);
   cargando = signal(false);
   postulacion = signal<Postulacion | undefined>(undefined);
- activarColor = computed(() => this.postulacion()?.estado.color);
+  activarColor = computed(() => this.postulacion()?.estado.color);
   idPostulacion!: number;
   esDemo = this.demoService.estaEnModoDemo();
-
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -55,6 +54,11 @@ protected bgStatusService = inject(BgStatusService);
     }
     this.idPostulacion = id;
     this.obtenerDetalles(id);
+  }
+
+  editar() {
+    this.bgStatusService.setStatusColor(this.activarColor()!);
+    this.router.navigate(['/editar', this.idPostulacion]);
   }
 
   obtenerDetalles(id: number): void {

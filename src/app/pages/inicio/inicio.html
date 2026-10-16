@@ -19,21 +19,36 @@
           <app-icon-moon />
         }
       </button>
-      <button type="button" class="btn btn-primary" [routerLink]="['/agregar']">
+      <button
+        type="button"
+        class="btn-icon btn-editar"
+        [routerLink]="['/agregar']"
+        [title]="'Agregar'"
+        [attr.aria-label]="'Agregar'"
+      >
         <app-icon-plus></app-icon-plus>
-        <span>Agregar</span>
       </button>
 
-      <button type="button" class="btn btn-secondary" [routerLink]="['/estados']">
+      <button
+        type="button"
+        class="btn-icon btn-editar"
+        [title]="'Configuración Estados'"
+        [attr.aria-label]="'Configuración Estados'"
+        [routerLink]="['/estados']"
+      >
         <app-icon-gear></app-icon-gear>
-        <span>Estados</span>
       </button>
 
       <div class="divider"></div>
 
-      <button type="button" class="btn btn-logout" (click)="cerrarSesion()">
+      <button
+        type="button"
+        class="btn-icon btn-eliminar"
+        [title]="'Salir'"
+        [attr.aria-label]="'Salir'"
+        (click)="cerrarSesion()"
+      >
         <app-icon-row></app-icon-row>
-        <span>Salir</span>
       </button>
 
       @if (!demoService.estaEnModoDemo()) {

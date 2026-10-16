@@ -16,13 +16,27 @@ import { Estado } from '../../interfaces/estado.interface';
 import { PingService } from '../../services/ping-service';
 import { IconTrash } from '../../components/icons/trash.component';
 import { DemoService } from '../../services/demo-service';
-import { Tag } from "../../components/tag/tag";
+import { Tag } from '../../components/tag/tag';
 import { ThemeService } from '../../services/theme-service';
 import { IconSun } from '../../components/icons/icon-sun.component';
 import { IconMoon } from '../../components/icons/icon-moon.component';
+import { BgStatusService } from '../../services/bg-status-service';
 @Component({
   selector: 'app-inicio',
-  imports: [JobCard, Loading, RouterLink, IconGear, IconPlus, IconRow, ChipGroup, Chip, IconTrash, Tag, IconSun, IconMoon],
+  imports: [
+    JobCard,
+    Loading,
+    RouterLink,
+    IconGear,
+    IconPlus,
+    IconRow,
+    ChipGroup,
+    Chip,
+    IconTrash,
+    Tag,
+    IconSun,
+    IconMoon,
+  ],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
@@ -34,7 +48,7 @@ export class Inicio implements OnInit {
   protected readonly pingService = inject(PingService);
   protected readonly demoService = inject(DemoService);
   protected readonly themeService = inject(ThemeService);
-
+  protected bgStatusService = inject(BgStatusService);
   postulaciones = signal<Postulacion[]>([]);
   estados = signal<Estado[]>([]);
   estadosSeleccionados = signal<number[]>([]);
@@ -44,6 +58,7 @@ export class Inicio implements OnInit {
   ngOnInit(): void {
     // this.obtenerPostulaciones();
     // this.obtenerEstados();
+    this.bgStatusService.setStatusColor(null);
     this.cargarDatosIniciales();
   }
 
@@ -153,7 +168,8 @@ export class Inicio implements OnInit {
       lista = lista.filter((p) => {
         const ofertaMatch = p.nombreOferta?.toLowerCase().includes(texto);
         const empresaMatch = p.nombreEmpresa?.toLowerCase().includes(texto);
-        return ofertaMatch || empresaMatch;
+        const pagMatch = p.paginaAplicacion?.toLowerCase().includes(texto);
+        return ofertaMatch || empresaMatch || pagMatch;
       });
     }
 

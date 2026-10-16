@@ -23,7 +23,7 @@
           <button
             type="button"
             class="btn-icon btn-editar"
-            [routerLink]="['/editar', p.id]"
+            (click)="editar()"
             title="Editar postulación"
           >
             <app-icon-pencil></app-icon-pencil>
