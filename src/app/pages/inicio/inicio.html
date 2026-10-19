@@ -74,22 +74,97 @@
         (input)="actualizarBusqueda($event)"
       />
     </div>
+    <button type="button" class="btn btn-secondary" (click)="mostrarFiltros.set(true)">
+      Filtros
+      @if (cantidadFiltrosActivos() > 0) {
+        ({{ cantidadFiltrosActivos() }})
+      }
+    </button>
+
+    @if (mostrarFiltros()) {
+      <app-modal-contenedor titulo="Filtros" (onCerrar)="mostrarFiltros.set(false)">
+        <div class="filtros">
+          <app-chip-group label="Funcionamiento del buscador" error="Selecciona dónde buscar">
+            <app-chip
+              tipo="checkbox"
+              label="Todo"
+              [checked]="criterioBusqueda() === 'TODO'"
+              (checkedChange)="setCriterioBusqueda('TODO')"
+            />
+
+            <app-chip
+              tipo="checkbox"
+              label="Nombre Oferta"
+              [checked]="criterioBusqueda() === 'OFERTA'"
+              (checkedChange)="setCriterioBusqueda('OFERTA')"
+            />
+
+            <app-chip
+              tipo="checkbox"
+              label="Nombre Empresa"
+              [checked]="criterioBusqueda() === 'EMPRESA'"
+              (checkedChange)="setCriterioBusqueda('EMPRESA')"
+            />
+
+            <app-chip
+              tipo="checkbox"
+              label="Nombre Página"
+              [checked]="criterioBusqueda() === 'PAGINA'"
+              (checkedChange)="setCriterioBusqueda('PAGINA')"
+            />
+          </app-chip-group>
+          <app-chip-group label="Estado">
+            @for (estado of estados(); track estado.id) {
+              <app-chip
+                tipo="estado"
+                [estado]="estado"
+                [checked]="esEstadoSeleccionado(estado.id)"
+                (checkedChange)="toggleEstado(estado.id, $event)"
+              />
+            }
+          </app-chip-group>
+          <app-chip-group label="Modalidad" error="Filtra por Modalidad">
+            <app-chip
+              tipo="checkbox"
+              label="Remoto"
+              [checked]="esModalidadSeleccionado(Modalidad.REMOTO)"
+              (checkedChange)="toggleModalidad(Modalidad.REMOTO, $event)"
+            />
+
+            <app-chip
+              tipo="checkbox"
+              label="Híbrido"
+              [checked]="esModalidadSeleccionado(Modalidad.HIBRIDO)"
+              (checkedChange)="toggleModalidad(Modalidad.HIBRIDO, $event)"
+            />
+
+            <app-chip
+              tipo="checkbox"
+              label="Presencial"
+              [checked]="esModalidadSeleccionado(Modalidad.PRESENCIAL)"
+              (checkedChange)="toggleModalidad(Modalidad.PRESENCIAL, $event)"
+            />
+          </app-chip-group>
+        </div>
+
+        <div class="filtros-acciones">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            [disabled]="cantidadFiltrosActivos() === 0"
+            (click)="limpiarFiltros()"
+          >
+            Limpiar filtros
+          </button>
+          <button type="button" class="btn btn-primary" (click)="mostrarFiltros.set(false)">
+            Ver {{ postulacionesFiltradas().length }} resultados
+          </button>
+        </div>
+      </app-modal-contenedor>
+    }
     <button type="button" (click)="limpiar()" class="btn-icon btn-eliminar" title="Eliminar estado">
       <app-icon-trash></app-icon-trash>
     </button>
-  </div>
-
-  <div class="filtros">
-    <app-chip-group label="Filtros por Estado">
-      @for (estado of estados(); track estado.id) {
-        <app-chip
-          tipo="estado"
-          [estado]="estado"
-          [checked]="esEstadoSeleccionado(estado.id)"
-          (checkedChange)="toggleEstado(estado.id, $event)"
-        />
-      }
-    </app-chip-group>
   </div>
 
   <footer class="modal-footer">

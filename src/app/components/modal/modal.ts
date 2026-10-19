@@ -15,6 +15,7 @@ import { IconTrash } from '../icons/trash.component';
   imports: [IconTrash],
   templateUrl: './modal.html',
   styleUrl: './modal.scss',
+  host: { '(document:keydown.escape)': 'cancelarEliminar()' },
 })
 export class Modal implements OnInit, OnDestroy {
   private el = inject(ElementRef);
@@ -35,6 +36,7 @@ export class Modal implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.renderer.appendChild(document.body, this.el.nativeElement);
+    document.body.style.overflow = 'hidden';
   }
 
   ngOnDestroy() {

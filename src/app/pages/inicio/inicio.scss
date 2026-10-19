@@ -68,13 +68,6 @@
     }
   }
 
-  .filtros {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-
   // Pie con sección de creación
   .modal-footer {
     flex-shrink: 0;
@@ -113,4 +106,19 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
     gap: 20px;
   }
+}
+
+.filtros {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filtros-acciones {
+  margin-top: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

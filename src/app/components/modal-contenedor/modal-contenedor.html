@@ -1,0 +1,20 @@
+<div class="modal-backdrop" (click)="cerrar()">
+  <div
+    class="modal-card"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="titulo()"
+    (click)="$event.stopPropagation()"
+  >
+    <header class="modal-header">
+      <h3>{{ titulo() }}</h3>
+      <button type="button" class="btn-icon" aria-label="Cerrar" title="Cerrar" (click)="cerrar()">
+        ✕
+      </button>
+    </header>
+
+    <div class="modal-body">
+      <ng-content />
+    </div>
+  </div>
+</div>

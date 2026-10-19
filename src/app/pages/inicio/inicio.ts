@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { JobCard } from '../../components/job-card/job-card';
 import { PostulacionService } from '../../services/postulacionService';
-import { Postulacion } from '../../interfaces/postulacion.interface';
+import { Modalidad, Postulacion } from '../../interfaces/postulacion.interface';
 import { finalize, forkJoin } from 'rxjs';
 import { Loading } from '../../components/loading/loading';
 import { Router, RouterLink } from '@angular/router';
@@ -21,6 +21,10 @@ import { ThemeService } from '../../services/theme-service';
 import { IconSun } from '../../components/icons/icon-sun.component';
 import { IconMoon } from '../../components/icons/icon-moon.component';
 import { BgStatusService } from '../../services/bg-status-service';
+import { ModalContenedor } from '../../components/modal-contenedor/modal-contenedor';
+
+export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
+
 @Component({
   selector: 'app-inicio',
   imports: [
@@ -36,6 +40,7 @@ import { BgStatusService } from '../../services/bg-status-service';
     Tag,
     IconSun,
     IconMoon,
+    ModalContenedor,
   ],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
@@ -49,11 +54,23 @@ export class Inicio implements OnInit {
   protected readonly demoService = inject(DemoService);
   protected readonly themeService = inject(ThemeService);
   protected bgStatusService = inject(BgStatusService);
+  protected readonly Modalidad = Modalidad;
+
+  mostrarFiltros = signal(false);
+  cantidadFiltrosActivos = computed(
+    () => this.estadosSeleccionados().length + this.modalidadesSeleccionadas().length,
+  );
   postulaciones = signal<Postulacion[]>([]);
   estados = signal<Estado[]>([]);
   estadosSeleccionados = signal<number[]>([]);
   cargando = signal(false);
   busqueda = signal<string>('');
+  modalidadesSeleccionadas = signal<Modalidad[]>([]);
+  criterioBusqueda = signal<CriterioBusqueda>('TODO');
+
+  setCriterioBusqueda(criterio: CriterioBusqueda): void {
+    this.criterioBusqueda.set(criterio);
+  }
 
   ngOnInit(): void {
     // this.obtenerPostulaciones();
@@ -66,49 +83,11 @@ export class Inicio implements OnInit {
     this.busqueda.set('');
   }
 
-  // obtenerPostulaciones(): void {
-  //   this.cargando.set(true);
-
-  //   this.postulacionService
-  //     .obtenerPostulaciones()
-  //     .pipe(
-  //       finalize(() => {
-  //         this.cargando.set(false);
-  //       }),
-  //     )
-  //     .subscribe({
-  //       next: (postulaciones) => {
-  //         this.postulaciones.set(postulaciones);
-  //       },
-
-  //       error: (err) => {
-  //         console.error(err);
-  //         this.toastr.error(err.error?.message ?? 'Error al conusltar postulaciones', 'Error');
-  //       },
-  //     });
-  // }
-
-  // obtenerEstados(): void {
-  //   this.cargando.set(true);
-
-  //   this.estadoService
-  //     .obtenerEstados()
-  //     .pipe(
-  //       finalize(() => {
-  //         this.cargando.set(false);
-  //       }),
-  //     )
-  //     .subscribe({
-  //       next: (estados) => {
-  //         this.estados.set(estados);
-  //       },
-
-  //       error: (err) => {
-  //         console.error(err);
-  //         this.toastr.error(err.error?.message ?? 'Error al consultar estados', 'Error');
-  //       },
-  //     });
-  // }
+  limpiarFiltros(): void {
+    this.estadosSeleccionados.set([]);
+    this.modalidadesSeleccionadas.set([]);
+    this.criterioBusqueda.set('TODO');
+  }
 
   cargarDatosIniciales(): void {
     this.cargando.set(true);
@@ -143,6 +122,20 @@ export class Inicio implements OnInit {
     return this.estadosSeleccionados().includes(estadoId);
   }
 
+  esModalidadSeleccionado(mod: Modalidad): boolean {
+    return this.modalidadesSeleccionadas().includes(mod);
+  }
+
+  toggleModalidad(mod: Modalidad, estaSeleccionado: boolean): void {
+    this.modalidadesSeleccionadas.update((actuales) => {
+      if (estaSeleccionado) {
+        return [...actuales, mod];
+      } else {
+        return actuales.filter((m) => m !== mod);
+      }
+    });
+  }
+
   toggleEstado(estadoId: number, estaSeleccionado: boolean): void {
     this.estadosSeleccionados.update((actuales) => {
       if (estaSeleccionado) {
@@ -160,22 +153,45 @@ export class Inicio implements OnInit {
 
   postulacionesFiltradas = computed(() => {
     const texto = this.busqueda().toLowerCase().trim();
+    const criterio = this.criterioBusqueda();
     const seleccionados = this.estadosSeleccionados();
+    const modalidadesSeleccionadas = this.modalidadesSeleccionadas();
     let lista = this.postulaciones();
 
     // Filtro 1: Por texto (nombre de la oferta o empresa)
     if (texto) {
+      const palabrasBusqueda = texto.split(/\s+/);
+
       lista = lista.filter((p) => {
-        const ofertaMatch = p.nombreOferta?.toLowerCase().includes(texto);
-        const empresaMatch = p.nombreEmpresa?.toLowerCase().includes(texto);
-        const pagMatch = p.paginaAplicacion?.toLowerCase().includes(texto);
-        return ofertaMatch || empresaMatch || pagMatch;
+        const oferta = p.nombreOferta?.toLowerCase() || '';
+        const empresa = p.nombreEmpresa?.toLowerCase() || '';
+        const pag = p.paginaAplicacion?.toLowerCase() || '';
+
+        // Dependiendo del criterio, construimos el texto donde se va a buscar
+        let textoDondeBuscar = '';
+        if (criterio === 'TODO') {
+          textoDondeBuscar = `${oferta} ${empresa} ${pag}`;
+        } else if (criterio === 'OFERTA') {
+          textoDondeBuscar = oferta;
+        } else if (criterio === 'EMPRESA') {
+          textoDondeBuscar = empresa;
+        } else if (criterio === 'PAGINA') {
+          textoDondeBuscar = pag;
+        }
+
+        // Verificamos que todas las palabras estén en ese campo/s específico/s
+        return palabrasBusqueda.every((palabra) => textoDondeBuscar.includes(palabra));
       });
     }
 
     // Filtro 2: Por chips de estado
     if (seleccionados.length > 0) {
       lista = lista.filter((p) => p.estado && seleccionados.includes(p.estado.id));
+    }
+
+    // Filtro 3: Por chips de modalidad (NUEVO)
+    if (modalidadesSeleccionadas.length > 0) {
+      lista = lista.filter((p) => p.modalidad && modalidadesSeleccionadas.includes(p.modalidad));
     }
 
     return lista;
