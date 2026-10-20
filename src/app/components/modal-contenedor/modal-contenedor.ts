@@ -8,12 +8,14 @@ import {
   output,
   Renderer2,
 } from '@angular/core';
+import { IconPlus } from '../icons/plus.component';
 
 @Component({
   selector: 'app-modal-contenedor',
   templateUrl: './modal-contenedor.html',
   styleUrl: './modal-contenedor.scss',
   host: { '(document:keydown.escape)': 'cerrar()' },
+  imports: [IconPlus],
 })
 export class ModalContenedor implements OnInit, OnDestroy {
   private el = inject(ElementRef);

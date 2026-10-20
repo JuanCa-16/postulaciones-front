@@ -24,7 +24,6 @@ import { BgStatusService } from '../../services/bg-status-service';
     IconDateComponent,
     TitleCasePipe,
     DatePipe,
-    RouterLink,
     IconRow,
   ],
   templateUrl: './job-card.html',
@@ -34,6 +33,8 @@ export class JobCard {
   protected bgStatusService = inject(BgStatusService);
   private router = inject(Router);
   postulacion = input.required<Postulacion>();
+  abierta = input(false);
+  alternar = output<void>();
 
   verDetalle() {
     const item = this.postulacion();

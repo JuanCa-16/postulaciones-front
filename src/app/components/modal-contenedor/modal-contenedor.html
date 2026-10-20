@@ -8,8 +8,14 @@
   >
     <header class="modal-header">
       <h3>{{ titulo() }}</h3>
-      <button type="button" class="btn-icon" aria-label="Cerrar" title="Cerrar" (click)="cerrar()">
-        ✕
+      <button
+        type="button"
+        class="btn-icon btn-eliminar"
+        aria-label="Cerrar"
+        title="Cerrar"
+        (click)="cerrar()"
+      >
+        <app-icon-plus></app-icon-plus>
       </button>
     </header>
 

@@ -1,3 +1,22 @@
+@mixin tarjeta-expandida {
+  box-shadow: 0 0 10px -5px var(--status-color, var(--main-color));
+
+  .info-container {
+    gap: 12px;
+
+    .extra {
+      max-height: 400px;
+      opacity: 1;
+      padding: 8px 5px;
+    }
+
+    .acciones-card {
+      max-height: 50px;
+      opacity: 1;
+    }
+  }
+}
+
 .jobCard-container {
   position: relative;
   display: flex;
@@ -121,25 +140,19 @@
     }
   }
 
-  /* Hover en PC + Click/Tap en Mobile sin alterar estilos */
-  &:hover,
-  &:active,
-  &:focus-within {
-    box-shadow: 0 0 10px -5px var(--status-color, var(--main-color));
+  cursor: pointer;
 
-    .info-container {
-      gap: 12px;
+  // PC con mouse
+  @media (hover: hover) {
+    &:hover {
+      @include tarjeta-expandida;
+    }
+  }
 
-      .extra {
-        max-height: 400px;
-        opacity: 1;
-        padding: 8px 5px;
-      }
-
-      .acciones-card {
-        max-height: 50px;
-        opacity: 1;
-      }
+  // Móvil / táctil
+  @media (hover: none) {
+    &.abierta {
+      @include tarjeta-expandida;
     }
   }
 }

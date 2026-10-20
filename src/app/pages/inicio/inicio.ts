@@ -68,6 +68,12 @@ export class Inicio implements OnInit {
   modalidadesSeleccionadas = signal<Modalidad[]>([]);
   criterioBusqueda = signal<CriterioBusqueda>('TODO');
 
+  tarjetaAbiertaId = signal<number | null>(null);
+
+  toggleTarjeta(id: number): void {
+    this.tarjetaAbiertaId.update((actual) => (actual === id ? null : id));
+  }
+
   setCriterioBusqueda(criterio: CriterioBusqueda): void {
     this.criterioBusqueda.set(criterio);
   }

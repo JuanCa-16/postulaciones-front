@@ -59,6 +59,7 @@ p {
 html,
 body {
   background-color: var(--background);
+  scrollbar-gutter: stable;
 }
 
 .btn {

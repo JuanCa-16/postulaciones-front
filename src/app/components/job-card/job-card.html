@@ -1,4 +1,9 @@
-<div class="jobCard-container" [style.--status-color]="postulacion().estado.color" tabindex="0">
+<div
+  class="jobCard-container"
+  [style.--status-color]="postulacion().estado.color"
+  [class.abierta]="abierta()"
+  (click)="alternar.emit()"
+>
   <div class="esfera"></div>
 
   <div class="info-container">
@@ -38,7 +43,12 @@
           <div class="item url">
             <app-icon-url></app-icon-url>
             <p>
-              <a [href]="postulacion().url" target="_blank" rel="noopener noreferrer">
+              <a
+                [href]="postulacion().url"
+                target="_blank"
+                rel="noopener noreferrer"
+                (click)="$event.stopPropagation()"
+              >
                 Ver oferta
               </a>
             </p>
@@ -54,7 +64,7 @@
 
     <!-- Único botón "Ver detalle" abajo a la derecha -->
     <div class="acciones-card">
-      <button type="button" class="btn-clear" (click)="verDetalle()">
+      <button type="button" class="btn-clear" (click)="$event.stopPropagation(); verDetalle()">
         <span>Ver detalle</span>
         <app-icon-row></app-icon-row>
       </button>

@@ -178,7 +178,11 @@
   } @else if (postulaciones().length > 0) {
     <div class="postulaciones">
       @for (postulacion of postulacionesFiltradas(); track postulacion.id) {
-        <app-job-card [postulacion]="postulacion"></app-job-card>
+        <app-job-card
+          [postulacion]="postulacion"
+          [abierta]="tarjetaAbiertaId() === postulacion.id"
+          (alternar)="toggleTarjeta(postulacion.id)"
+        ></app-job-card>
       } @empty {
         <p>No hay postulaciones que coincidan con los filtros seleccionados.</p>
       }
