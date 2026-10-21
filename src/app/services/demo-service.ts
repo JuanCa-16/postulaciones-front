@@ -3,6 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 
 import { Estado } from '../interfaces/estado.interface';
 import { Modalidad, Postulacion } from '../interfaces/postulacion.interface';
+import { Nota } from '../interfaces/nota.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -240,6 +241,15 @@ export class DemoService {
     },
   ];
 
+  private readonly notas: Nota = {
+    reclutador: 'Juan',
+    salario: '3.500.500',
+    ubicacion: 'Tulua',
+    horario: '9:00',
+    tipoContrato: null,
+    otros: null,
+  };
+
   estaEnModoDemo(): boolean {
     return localStorage.getItem('authMode') === 'demo';
   }
@@ -250,6 +260,10 @@ export class DemoService {
 
   obtenerPostulaciones(): Observable<Postulacion[]> {
     return of(this.postulaciones);
+  }
+
+  obtenerNota(id: number): Observable<Nota | null> {
+    return of(this.notas);
   }
 
   obtenerDetallePostulacion(id: number): Observable<Postulacion> {
