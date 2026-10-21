@@ -21,4 +21,7 @@ export class InputField {
   error = input<string | null>(null);
   mostrarError = input<boolean>(false);
   autocomplete = input<string>('off');
+
+  textarea = input<boolean>(false);
+  rows = input<number>(4);
 }

@@ -58,7 +58,73 @@
         @if (p.url) {
           <app-data-field label="Enlace de oferta" [url]="p.url" [fullWidth]="true" />
         }
+
+        <div class="notas-card">
+          <div class="acciones-notas">
+            @if (nota() != null) {
+              <button
+                type="button"
+                class="btn-icon btn-editar"
+                (click)="mostrarNota.set(true)"
+                title="Notas"
+              >
+                <app-icon-pencil></app-icon-pencil>
+              </button>
+            }
+          </div>
+          <div class="notas-preview">
+            @if (nota() == null) {
+              <div class="item" (click)="mostrarNota.set(true)">
+                <app-icon-plus></app-icon-plus>
+                <p>Agregar Nota</p>
+              </div>
+            } @else {
+              @if (nota()?.reclutador) {
+                <div class="item" (click)="mostrarNota.set(true)">
+                  <app-icon-user></app-icon-user>
+                  <p>{{ nota()?.reclutador }}</p>
+                </div>
+              }
+
+              @if (nota()?.ubicacion) {
+                <div class="item" (click)="mostrarNota.set(true)">
+                  <app-icon-location></app-icon-location>
+                  <p>{{ nota()?.ubicacion }}</p>
+                </div>
+              }
+
+              @if (nota()?.salario) {
+                <div class="item" (click)="mostrarNota.set(true)">
+                  <app-icon-money></app-icon-money>
+                  <p>{{ nota()?.salario }}</p>
+                </div>
+              }
+
+              @if (nota()?.horario) {
+                <div class="item" (click)="mostrarNota.set(true)">
+                  <app-icon-clock></app-icon-clock>
+                  <p>{{ nota()?.horario }}</p>
+                </div>
+              }
+
+              @if (nota()?.tipoContrato) {
+                <div class="item" (click)="mostrarNota.set(true)">
+                  <app-icon-contract></app-icon-contract>
+                  <p>{{ nota()?.tipoContrato }}</p>
+                </div>
+              }
+
+              @if (nota()?.otros) {
+                <div class="item" (click)="mostrarNota.set(true)">
+                  <app-icon-contract></app-icon-contract>
+                  <p>Ver más</p>
+                </div>
+              }
+            }
+          </div>
+        </div>
       </div>
+
       @if (p.historial && p.historial.length >= 1) {
         <h3 class="titulo-historial">Historial de Cambios</h3>
         <!-- Contenedor padre de la línea continua -->
@@ -79,4 +145,14 @@
     (onCancelar)="cancelarEliminar()"
     (onConfirmar)="confirmarEliminacion()"
   ></app-modal>
+}
+
+@if (mostrarNota()) {
+  <app-modal-contenedor titulo="Notas" (onCerrar)="mostrarNota.set(false)">
+    <app-editor-nota
+      [idPostulacion]="idPostulacion"
+      [nota]="nota()"
+      (responseNota)="recargarNota($event)"
+    ></app-editor-nota>
+  </app-modal-contenedor>
 }

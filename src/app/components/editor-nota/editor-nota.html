@@ -1,0 +1,36 @@
+@if (cargando()) {
+  <app-loading />
+}
+<div class="nota-container">
+  <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
+    <div class="inputs-group">
+      <div class="row">
+        <app-input-field controlName="reclutador" label="Reclutador">
+          <app-icon-user inputIcon />
+        </app-input-field>
+
+        <app-input-field controlName="salario" label="Salario">
+          <app-icon-money inputIcon />
+        </app-input-field>
+      </div>
+
+      <div class="row">
+        <app-input-field controlName="ubicacion" label="Ubicacion">
+          <app-icon-location inputIcon />
+        </app-input-field>
+
+        <app-input-field controlName="horario" label="Horario">
+          <app-icon-clock inputIcon />
+        </app-input-field>
+
+        <app-input-field controlName="tipoContrato" label="Contrato">
+          <app-icon-contract inputIcon />
+        </app-input-field>
+      </div>
+
+      <app-input-field controlName="otros" label="Otros" [textarea]="true" [rows]="5" />
+    </div>
+
+    <button type="submit" class="btn-submit">Guardar</button>
+  </form>
+</div>

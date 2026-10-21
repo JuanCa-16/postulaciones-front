@@ -16,14 +16,6 @@
     border-color: var(--input-focused-border);
   }
 
-  small {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
   input {
     border: none;
     outline: none;
@@ -35,6 +27,45 @@
 
     &::placeholder {
       color: var(--text-secondary);
+    }
+  }
+
+  textarea {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    width: 100%;
+    resize: none;
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+
+  .label {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+
+    small {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    [inputIcon] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
   }
 

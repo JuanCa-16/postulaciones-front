@@ -1,13 +1,25 @@
 <div class="input-container">
-  <small>{{ label() }}</small>
+  <div class="label">
+    <ng-content select="[inputIcon]" />
+    <small>{{ label() }}</small>
+  </div>
 
-  <input
-    [type]="type()"
-    [formControlName]="controlName()"
-    [placeholder]="placeholder()"
-    [class.is-invalid]="mostrarError()"
-    [attr.autocomplete]="autocomplete()"
-  />
+  @if (textarea()) {
+    <textarea
+      [formControlName]="controlName()"
+      [placeholder]="placeholder()"
+      [rows]="rows()"
+      [class.is-invalid]="mostrarError()"
+    ></textarea>
+  } @else {
+    <input
+      [type]="type()"
+      [formControlName]="controlName()"
+      [placeholder]="placeholder()"
+      [class.is-invalid]="mostrarError()"
+      [attr.autocomplete]="autocomplete()"
+    />
+  }
 
   @if (mostrarError() && error()) {
     <small class="error-input">{{ error() }}</small>

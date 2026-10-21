@@ -57,9 +57,7 @@ export class Inicio implements OnInit {
   protected readonly Modalidad = Modalidad;
 
   mostrarFiltros = signal(false);
-  cantidadFiltrosActivos = computed(
-    () => this.estadosSeleccionados().length + this.modalidadesSeleccionadas().length,
-  );
+
   postulaciones = signal<Postulacion[]>([]);
   estados = signal<Estado[]>([]);
   estadosSeleccionados = signal<number[]>([]);
@@ -69,7 +67,12 @@ export class Inicio implements OnInit {
   criterioBusqueda = signal<CriterioBusqueda>('TODO');
 
   tarjetaAbiertaId = signal<number | null>(null);
-
+  cantidadFiltrosActivos = computed(
+    () =>
+      this.estadosSeleccionados().length +
+      this.modalidadesSeleccionadas().length +
+      (this.criterioBusqueda() != 'TODO' ? 1 : 0),
+  );
   toggleTarjeta(id: number): void {
     this.tarjetaAbiertaId.update((actual) => (actual === id ? null : id));
   }

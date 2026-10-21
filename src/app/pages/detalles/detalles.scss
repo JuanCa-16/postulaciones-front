@@ -23,7 +23,7 @@
     transform: translateY(-50%);
     width: 100%;
     height: 45%;
-    background-color:  color-mix(in srgb, var(--status-color, var(--main-color)), transparent 65%);
+    background-color: color-mix(in srgb, var(--status-color, var(--main-color)), transparent 65%);
     border-radius: 5%;
     z-index: 1;
     pointer-events: none;
@@ -65,7 +65,6 @@
         display: flex;
         align-items: center;
         gap: 8px;
-
       }
     }
 
@@ -88,6 +87,58 @@
         align-items: center;
         gap: 8px;
         z-index: 2;
+      }
+
+      .notas-card {
+        padding-top: 12px;
+        border-top: 1px dashed var(--text-secondary);
+        display: flex;
+        grid-column: 1 / -1;
+        position: relative;
+
+        .acciones-notas {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          z-index: 2;
+        }
+
+        .notas-preview {
+          display: flex;
+          width: 100%;
+          justify-content: flex-start;
+          align-items: flex-start;
+          align-content: flex-start;
+          align-self: stretch;
+          flex-wrap: wrap;
+          gap: 12px;
+          transition: transform 2s ease;
+          transform-origin: center center;
+          font-size: 0.95rem;
+
+          .item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            background: color-mix(in srgb, var(--status-color, var(--main-color)), transparent 95%);
+            border-radius: 6px;
+            padding: 6px 12px;
+            color: var(--status-color, var(--main-color));
+
+            p {
+              color: var(--status-color, var(--main-color));
+            }
+
+            &:hover {
+              transform: scale(0.95);
+              cursor: pointer;
+            }
+          }
+        }
       }
     }
     /* Sección e Historial con Línea de Tiempo Exterior */
