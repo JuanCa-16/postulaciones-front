@@ -99,7 +99,7 @@
         .acciones-notas {
           position: absolute;
           top: 14px;
-          right: 14px;
+          right: -6px;
           display: flex;
           align-items: center;
           gap: 8px;
@@ -118,6 +118,7 @@
           transition: transform 2s ease;
           transform-origin: center center;
           font-size: 0.95rem;
+          padding-right: 24px;
 
           .item {
             display: flex;
