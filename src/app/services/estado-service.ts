@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { CrearEstado, EditarEstado, Estado } from '../interfaces/estado.interface';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { ApiResponse } from '../interfaces/api-response.interface';
 
 @Injectable({
@@ -12,8 +12,21 @@ export class EstadoService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/estados`;
 
+  estados = signal<Estado[]>([]);
+
   obtenerEstados(): Observable<Estado[]> {
-    return this.http.get<ApiResponse<Estado[]>>(this.apiUrl).pipe(map((response) => response.data));
+    if (this.estados().length > 0) {
+      return of(this.estados());
+    }
+
+    return this.http.get<ApiResponse<Estado[]>>(this.apiUrl).pipe(
+      map((response) => response.data),
+      tap((estados) => this.estados.set(estados)),
+    );
+  }
+
+  limpiarEstados(): void {
+    this.estados.set([]);
   }
 
   crearEstado(estado: CrearEstado): Observable<ApiResponse<void>> {

@@ -1,0 +1,30 @@
+<div class="dashboard-grid">
+  <div class="total">
+    <app-total-postulaciones />
+  </div>
+
+  <div class="estados"><app-porcentaje-estados/></div>
+
+  <div class="dias"><app-grafico-dias/></div>
+
+  <div class="topEmpresas">
+    <app-podio
+      class="topEmpresas"
+      titulo="Top Empresas"
+      [datos]="topEmpresas()"
+      [estados]="estados()"
+      [cargando]="cargandoE()"
+      (estadoSeleccionado)="obtenerTopEmpresas($event)"
+    />
+  </div>
+  <div class="topPaginas">
+    <app-podio
+      class="topPaginas"
+      titulo="Top Páginas"
+      [datos]="topPaginas()"
+      [estados]="estados()"
+      [cargando]="cargandoP()"
+      (estadoSeleccionado)="obtenerTopPaginas($event)"
+    />
+  </div>
+</div>

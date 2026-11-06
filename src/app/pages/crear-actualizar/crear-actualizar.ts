@@ -88,6 +88,7 @@ export class CrearActualizar implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.toastr.success('Postulación creada con éxito', 'Éxito');
+          this.postulacionService.limpiarPostulaciones();
           this.router.navigate(['/']);
         },
         error: (err) => {
@@ -140,6 +141,7 @@ export class CrearActualizar implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.toastr.success('Postulación actualizada con éxito', 'Éxito');
+          this.postulacionService.limpiarPostulaciones();
           this.router.navigate(['/detalles', this.idPostulacion]);
         },
         error: (err) => {

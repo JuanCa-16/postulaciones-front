@@ -1,0 +1,58 @@
+@use '../../../styles/mixins' as *;
+
+:host {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 30px 0px;
+}
+
+.dashboard-grid {
+  display: grid;
+  width: 85%;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'divA divB'
+    'divC divB'
+    'divD divE';
+  gap: 20px;
+
+  > * {
+    @include glass-card;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .total {
+    grid-area: divA;
+  }
+
+  .estados {
+    grid-area: divB;
+  }
+
+  .dias {
+    grid-area: divC;
+  }
+
+  .topEmpresas {
+    grid-area: divD;
+  }
+
+  .topPaginas {
+    grid-area: divE;
+  }
+
+  // Versión responsiva para móviles
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'divA'
+      'divC'
+      'divB'
+      'divD'
+      'divE';
+  }
+}
