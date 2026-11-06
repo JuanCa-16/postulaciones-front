@@ -22,6 +22,7 @@ import { IconSun } from '../../components/icons/icon-sun.component';
 import { IconMoon } from '../../components/icons/icon-moon.component';
 import { BgStatusService } from '../../services/bg-status-service';
 import { ModalContenedor } from '../../components/modal-contenedor/modal-contenedor';
+import { IconBuildingData } from '../../components/icons/icon-data.component';
 
 export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
 
@@ -41,7 +42,8 @@ export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
     IconSun,
     IconMoon,
     ModalContenedor,
-  ],
+    IconBuildingData
+],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
