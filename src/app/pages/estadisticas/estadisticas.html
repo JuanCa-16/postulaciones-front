@@ -1,31 +1,11 @@
 <div class="dashboard-grid">
   <div class="total">
-    <div class="header-total">
-      <h3 class="label">Total Postulaciones</h3>
-      <span class="valor-total">{{ cantPostulaciones() }}</span>
-    </div>
-
-    <div class="modalidades-grid">
-      @for (mod of estadisticasPorModalidad(); track $index) {
-        <div class="mod-card">
-          <div class="info">
-            <span class="nombre">
-              <span class="texto">{{ mod.modalidad }}</span>
-            </span>
-
-            <span class="cantidad">{{ mod.cantidad }}</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill remoto" [style.--ancho]="mod.porcentaje + '%'"></div>
-          </div>
-        </div>
-      }
-    </div>
+    <app-total-postulaciones />
   </div>
 
-  <div class="estados"><div echarts [options]="option()" class="grafico"></div></div>
+  <div class="estados"><app-porcentaje-estados/></div>
 
-  <div class="dias"><div echarts [options]="optionDias()" class="grafico-calendario"></div></div>
+  <div class="dias"><app-grafico-dias/></div>
 
   <div class="topEmpresas">
     <app-podio
@@ -33,6 +13,7 @@
       titulo="Top Empresas"
       [datos]="topEmpresas()"
       [estados]="estados()"
+      [cargando]="cargandoE()"
       (estadoSeleccionado)="obtenerTopEmpresas($event)"
     />
   </div>
@@ -42,6 +23,7 @@
       titulo="Top Páginas"
       [datos]="topPaginas()"
       [estados]="estados()"
+      [cargando]="cargandoP()"
       (estadoSeleccionado)="obtenerTopPaginas($event)"
     />
   </div>

@@ -134,6 +134,7 @@ export class Detalles {
       .subscribe({
         next: () => {
           this.router.navigate(['/']);
+          this.postulacionService.limpiarPostulaciones();
           this.toastr.success('Postulación eliminada con éxito', 'Eliminada');
         },
         error: (err) => {

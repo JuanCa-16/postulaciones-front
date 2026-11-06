@@ -85,6 +85,7 @@ export class Estados implements OnInit {
           this.toastr.success('Estado editado con éxito', 'Éxito');
 
           this.obtenerEstados();
+          this.estadoService.limpiarEstados();
         },
         error: (err) => {
           console.error(err);
@@ -120,7 +121,7 @@ export class Estados implements OnInit {
       .subscribe({
         next: () => {
           this.toastr.success('Estado creado con éxito', 'Éxito');
-
+          this.estadoService.limpiarEstados();
           this.obtenerEstados();
         },
         error: (err) => {
@@ -148,6 +149,7 @@ export class Estados implements OnInit {
       .subscribe({
         next: () => {
           this.toastr.success('Estado eliminado con éxito', 'Éxito');
+          this.estadoService.limpiarEstados();
           this.obtenerEstados();
         },
         error: (err) => {

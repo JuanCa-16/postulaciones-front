@@ -1,8 +1,12 @@
+@if (cargando()) {
+    <app-loading [contenedor]="true" />
+}
+
 <h3 class="titulo">{{ titulo() }}</h3>
 
 @if (estados()) {
   <form [formGroup]="filtroForm">
-    <app-chip-group label="Estado actual">
+    <app-chip-group label="Filtro Estado">
       <app-chip tipo="radio" controlName="estadoId" label="Todos" value="todos" />
 
       @for (estado of estados(); track estado.id) {

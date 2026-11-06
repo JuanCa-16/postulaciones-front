@@ -9,4 +9,5 @@ import { BgStatusService } from '../../services/bg-status-service';
 })
 export class Loading {
 protected bgStatusService = inject(BgStatusService);
+contenedor = input(false);
 }

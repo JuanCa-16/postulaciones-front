@@ -5,10 +5,11 @@ import { ChipGroup } from '../../chip-group/chip-group';
 import { Chip } from '../../inputs/chip/chip';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Loading } from '../../loading/loading';
 
 @Component({
   selector: 'app-podio',
-  imports: [ChipGroup, Chip, ReactiveFormsModule],
+  imports: [ChipGroup, Chip, ReactiveFormsModule, Loading],
   templateUrl: './podio.html',
   styleUrl: './podio.scss',
 })
@@ -16,6 +17,7 @@ export class Podio {
   titulo = input.required<string>();
   datos = input<RankingEstadisticaDTO[]>([]);
   unidad = input('Postul.');
+  cargando = input<boolean>(false);
   estados = input<Estado[]>([]);
 
   estadoSeleccionado = output<number | 'todos'>();
@@ -48,6 +50,7 @@ export class Podio {
   });
 
   colorPrincipal = computed(() => {
+    if (this.cargando()) return;
     const estadoId = this.estadoIdSignal(); // Usamos el signal en lugar de .value directo
 
     if (estadoId === 'todos') {
