@@ -1,0 +1,44 @@
+<h3 class="titulo">{{ titulo() }}</h3>
+
+@if (estados()) {
+  <form [formGroup]="filtroForm">
+    <app-chip-group label="Estado actual">
+      <app-chip tipo="radio" controlName="estadoId" label="Todos" value="todos" />
+
+      @for (estado of estados(); track estado.id) {
+        <app-chip controlName="estadoId" [estado]="estado" tipo="estado" />
+      }
+    </app-chip-group>
+  </form>
+}
+
+@if (datos().length) {
+  <div class="podio" [style.--podio-color]="colorPrincipal()">
+    @for (p of podio(); track p.nombre) {
+      <div class="puesto" [class]="'p' + p.pos">
+        @if (p.pos === 1) {
+          <span class="corona">👑</span>
+        }
+        <span class="cantidad">{{ p.cantidad + ' ' + unidad() }}</span>
+        <span class="nombre" [title]="p.nombre">{{ p.nombre }}</span>
+        <div class="bloque">
+          <span class="numero"># {{ p.pos }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (resto().length) {
+    <div class="resto" [style.--podio-color]="colorPrincipal()">
+      @for (r of resto(); track r.nombre; let i = $index) {
+        <div class="fila" [style.--i]="i">
+          <span class="pos"># {{ r.pos }}</span>
+          <span class="nombre" [title]="r.nombre">{{ r.nombre }}</span>
+          <span class="cantidad">{{ r.cantidad + ' ' + unidad() }}</span>
+        </div>
+      }
+    </div>
+  }
+} @else {
+  <p class="vacio">Aún no hay datos</p>
+}

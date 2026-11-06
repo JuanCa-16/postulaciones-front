@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Inicio } from './pages/inicio/inicio';
 import { authGuard } from './core/guards/auth.guard';
 import { publicGuard } from './core/guards/public.guard';
+import { Estadisticas } from './pages/estadisticas/estadisticas';
 
 export const routes: Routes = [
   // 1. Ruta principal del dashboard / lista de postulaciones
@@ -40,6 +41,12 @@ export const routes: Routes = [
       {
         path: 'estados',
         loadComponent: () => import('./pages/estados/estados').then((m) => m.Estados),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'estadisticas',
+        loadComponent: () =>
+          import('./pages/estadisticas/estadisticas').then((m) => m.Estadisticas),
         canActivate: [authGuard],
       },
     ],

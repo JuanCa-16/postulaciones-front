@@ -1,0 +1,48 @@
+<div class="dashboard-grid">
+  <div class="total">
+    <div class="header-total">
+      <h3 class="label">Total Postulaciones</h3>
+      <span class="valor-total">{{ cantPostulaciones() }}</span>
+    </div>
+
+    <div class="modalidades-grid">
+      @for (mod of estadisticasPorModalidad(); track $index) {
+        <div class="mod-card">
+          <div class="info">
+            <span class="nombre">
+              <span class="texto">{{ mod.modalidad }}</span>
+            </span>
+
+            <span class="cantidad">{{ mod.cantidad }}</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill remoto" [style.--ancho]="mod.porcentaje + '%'"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="estados"><div echarts [options]="option()" class="grafico"></div></div>
+
+  <div class="dias"><div echarts [options]="optionDias()" class="grafico-calendario"></div></div>
+
+  <div class="topEmpresas">
+    <app-podio
+      class="topEmpresas"
+      titulo="Top Empresas"
+      [datos]="topEmpresas()"
+      [estados]="estados()"
+      (estadoSeleccionado)="obtenerTopEmpresas($event)"
+    />
+  </div>
+  <div class="topPaginas">
+    <app-podio
+      class="topPaginas"
+      titulo="Top Páginas"
+      [datos]="topPaginas()"
+      [estados]="estados()"
+      (estadoSeleccionado)="obtenerTopPaginas($event)"
+    />
+  </div>
+</div>

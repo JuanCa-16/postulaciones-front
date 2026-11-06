@@ -1,0 +1,184 @@
+@use '../../../styles/mixins' as *;
+
+@keyframes llenar {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--ancho);
+  }
+}
+
+:host {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.dashboard-grid {
+  display: grid;
+  width: 85%;
+  height: 90%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 6px;
+  margin-right: -6px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--input-focused-border);
+    border-radius: 10px;
+
+    &:hover {
+      background: var(--main-color);
+    }
+  }
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'divA divB'
+    'divC divB'
+    'divD divE';
+  gap: 20px;
+
+  // Estilos comunes para todos los hijos directos usando el operador parental '&'
+  > * {
+    @include glass-card;
+    border-radius: 12px;
+  }
+
+  // Mapeo de áreas para escritorio
+  .total {
+    grid-area: divA;
+
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+
+    .header-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px dotted var(--input-focused-border);
+      padding-bottom: 12px;
+
+      .label {
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-primary);
+      }
+
+      .valor-total {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--main-color);
+      }
+    }
+
+    .modalidades-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      .mod-card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .info {
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+
+          .nombre {
+            display: flex;
+            gap: 5px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            .texto {
+              display: inline-block;
+              text-transform: lowercase;
+
+              &::first-letter {
+                text-transform: uppercase;
+              }
+            }
+          }
+
+          .cantidad {
+            font-weight: 600;
+            color: var(--text-primary);
+          }
+        }
+
+        // Barra de progreso sutil y elegante
+        .progress-bar {
+          width: 100%;
+          height: 8px;
+          background-color: var(--input-focused-border);
+          border-radius: 4px;
+          overflow: hidden;
+
+          .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: var(--ancho);
+            animation: llenar 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+
+            &.remoto {
+              background-color: color-mix(in srgb, var(--main-color) 95%, transparent);
+            }
+            &.hibrido {
+              background-color: color-mix(in srgb, var(--main-color) 70%, transparent);
+            }
+            &.presencial {
+              background-color: color-mix(in srgb, var(--main-color) 40%, transparent);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .estados {
+    grid-area: divB;
+  }
+
+  .dias {
+    grid-area: divC;
+    .grafico-calendario {
+      width: 100%;
+      height: 220px;
+    }
+  }
+
+  .topEmpresas {
+    grid-area: divD;
+  }
+
+  .topPaginas {
+    grid-area: divE;
+  }
+
+  // Versión responsiva para móviles
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'divA'
+      'divC'
+      'divB'
+      'divD'
+      'divE';
+  }
+}
