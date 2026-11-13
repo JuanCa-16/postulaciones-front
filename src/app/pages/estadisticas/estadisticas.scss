@@ -1,11 +1,11 @@
 @use '../../../styles/mixins' as *;
 
 :host {
-  width: 85%; // Cambiado de 100vw para evitar scroll horizontal
+  width: 95%; // Cambiado de 100vw para evitar scroll horizontal
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 24px; // Padding lateral de seguridad
+  padding: 30px 12px; // Padding lateral de seguridad
   box-sizing: border-box;
 }
 
