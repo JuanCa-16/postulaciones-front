@@ -47,8 +47,12 @@ export class GraficoDias implements OnInit {
 
   obtenerPorDia(): void {
     this.cargando.set(true);
-    this.estadisticasService
-      .postulacionesPorDia()
+
+    const estadistica$ = this.esDemo
+      ? this.demoService.postulacionesPorDia()
+      : this.estadisticasService.postulacionesPorDia();
+
+    estadistica$
       .pipe(
         finalize(() => {
           this.cargando.set(false);

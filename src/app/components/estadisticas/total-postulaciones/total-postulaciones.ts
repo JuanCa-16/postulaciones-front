@@ -28,8 +28,11 @@ export class TotalPostulaciones implements OnInit {
 
   obtenerTotal(): void {
     this.cargando.set(true);
-    this.estadisticasService
-      .totalPostulaciones()
+    const estadistica$ = this.esDemo
+      ? this.demoService.totalPostulaciones()
+      : this.estadisticasService.totalPostulaciones();
+
+    estadistica$
       .pipe(
         finalize(() => {
           this.cargando.set(false);
@@ -43,7 +46,11 @@ export class TotalPostulaciones implements OnInit {
   }
 
   obtenerPorModalidad(): void {
-    this.estadisticasService.postulacionesPorModalidad().subscribe({
+    const estadistica$ = this.esDemo
+      ? this.demoService.postulacionesPorModalidad()
+      : this.estadisticasService.postulacionesPorModalidad();
+
+    estadistica$.subscribe({
       next: (resultado) => {
         this.estadisticasPorModalidad.set(resultado);
       },
