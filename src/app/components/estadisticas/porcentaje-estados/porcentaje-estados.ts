@@ -47,8 +47,12 @@ export class PorcentajeEstados implements OnInit {
 
   obtenerPorEstado(): void {
     this.cargando.set(true);
-    this.estadisticasService
-      .postulacionesPorEstado()
+
+    const estadistica$ = this.esDemo
+      ? this.demoService.postulacionesPorEstado()
+      : this.estadisticasService.postulacionesPorEstado();
+
+    estadistica$
       .pipe(
         finalize(() => {
           this.cargando.set(false);

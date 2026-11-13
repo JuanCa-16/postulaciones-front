@@ -11,10 +11,11 @@ import { PorcentajeEstados } from '../../components/estadisticas/porcentaje-esta
 import { GraficoDias } from '../../components/estadisticas/grafico-dias/grafico-dias';
 import { DemoService } from '../../services/demo-service';
 import { finalize } from 'rxjs';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-estadisticas',
-  imports: [Podio, TotalPostulaciones, PorcentajeEstados, GraficoDias],
+  imports: [Podio, TotalPostulaciones, PorcentajeEstados, GraficoDias, Header],
   providers: [provideEchartsCore({ echarts })],
   templateUrl: './estadisticas.html',
   styleUrl: './estadisticas.scss',
@@ -32,6 +33,8 @@ export class Estadisticas implements OnInit {
   cargandoE = signal(false);
   cargandoP = signal(false);
 
+  esDemo = this.demoService.estaEnModoDemo();
+
   ngOnInit(): void {
     this.obtenerEstados();
     this.obtenerTopEmpresas('todos');
@@ -39,20 +42,24 @@ export class Estadisticas implements OnInit {
   }
 
   obtenerEstados(): void {
-    this.estadoService
-      .obtenerEstados()
-
-      .subscribe({
-        next: (estados) => {
-          this.estados.set(estados);
-        },
-      });
+    const estados$ = this.esDemo
+      ? this.demoService.obtenerEstados()
+      : this.estadoService.obtenerEstados();
+    estados$.subscribe({
+      next: (estados) => {
+        this.estados.set(estados);
+      },
+    });
   }
 
   obtenerTopEmpresas(estadoId: number | 'todos'): void {
     this.cargandoE.set(true);
-    this.estadisticasService
-      .topEmpresasAplicadas(estadoId)
+
+    const estadistica$ = this.esDemo
+      ? this.demoService.topEmpresasAplicadas(estadoId)
+      : this.estadisticasService.topEmpresasAplicadas(estadoId);
+
+    estadistica$
       .pipe(
         finalize(() => {
           this.cargandoE.set(false);
@@ -65,8 +72,12 @@ export class Estadisticas implements OnInit {
 
   obtenerTopPaginas(estadoId: number | 'todos'): void {
     this.cargandoP.set(true);
-    this.estadisticasService
-      .topPaginasAplicadas(estadoId)
+
+    const estadistica$ = this.esDemo
+      ? this.demoService.topPaginasAplicadas(estadoId)
+      : this.estadisticasService.topPaginasAplicadas(estadoId);
+
+    estadistica$
       .pipe(
         finalize(() => {
           this.cargandoP.set(false);
