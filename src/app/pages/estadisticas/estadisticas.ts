@@ -11,10 +11,11 @@ import { PorcentajeEstados } from '../../components/estadisticas/porcentaje-esta
 import { GraficoDias } from '../../components/estadisticas/grafico-dias/grafico-dias';
 import { DemoService } from '../../services/demo-service';
 import { finalize } from 'rxjs';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-estadisticas',
-  imports: [Podio, TotalPostulaciones, PorcentajeEstados, GraficoDias],
+  imports: [Podio, TotalPostulaciones, PorcentajeEstados, GraficoDias, Header],
   providers: [provideEchartsCore({ echarts })],
   templateUrl: './estadisticas.html',
   styleUrl: './estadisticas.scss',

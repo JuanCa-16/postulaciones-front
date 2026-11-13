@@ -1,11 +1,17 @@
+<app-header
+  titulo="Métricas & Rendimiento"
+  subtitulo="Resumen de Postulaciones"
+  [url]="'/'"
+></app-header>
+
 <div class="dashboard-grid">
   <div class="total">
     <app-total-postulaciones />
   </div>
 
-  <div class="estados"><app-porcentaje-estados/></div>
+  <div class="estados"><app-porcentaje-estados /></div>
 
-  <div class="dias"><app-grafico-dias/></div>
+  <div class="dias"><app-grafico-dias /></div>
 
   <div class="topEmpresas">
     <app-podio

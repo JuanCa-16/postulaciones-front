@@ -7,6 +7,7 @@ import { Loading } from '../../components/loading/loading';
 import { Header } from '../../components/header/header';
 import { ToastrService } from 'ngx-toastr';
 import { DemoService } from '../../services/demo-service';
+import { PostulacionService } from '../../services/postulacionService';
 
 @Component({
   selector: 'app-estados',
@@ -19,6 +20,7 @@ export class Estados implements OnInit {
   private readonly estadoService = inject(EstadoService);
   private readonly toastr = inject(ToastrService);
   protected readonly demoService = inject(DemoService);
+  private readonly postulacionService = inject(PostulacionService);
 
   estados = signal<Estado[]>([]);
   cargando = signal(false);
@@ -86,6 +88,7 @@ export class Estados implements OnInit {
 
           this.obtenerEstados();
           this.estadoService.limpiarEstados();
+          this.postulacionService.limpiarPostulaciones();
         },
         error: (err) => {
           console.error(err);
@@ -123,6 +126,7 @@ export class Estados implements OnInit {
           this.toastr.success('Estado creado con éxito', 'Éxito');
           this.estadoService.limpiarEstados();
           this.obtenerEstados();
+          this.postulacionService.limpiarPostulaciones();
         },
         error: (err) => {
           console.error(err);

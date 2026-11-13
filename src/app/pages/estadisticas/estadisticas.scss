@@ -1,16 +1,21 @@
 @use '../../../styles/mixins' as *;
 
 :host {
-  width: 100vw;
+  width: 85%; // Cambiado de 100vw para evitar scroll horizontal
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 30px 0px;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 24px; // Padding lateral de seguridad
+  box-sizing: border-box;
+}
+
+app-header{
+  width: 100%;
 }
 
 .dashboard-grid {
   display: grid;
-  width: 85%;
+  max-width: 1500px;
 
   grid-template-columns: 1fr 1fr;
   grid-template-areas:

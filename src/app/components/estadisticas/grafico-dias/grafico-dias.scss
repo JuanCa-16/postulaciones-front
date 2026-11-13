@@ -1,6 +1,41 @@
 :host {
+  display: block;
+  width: 100%;
+}
+
+.scroll-calendario {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  /* Scrollbar discreta para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--input-focused-border) transparent;
+
+  /* Scrollbar para WebKit (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    height: 6px; /* Importante: en scroll horizontal, el alto controla la barra */
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--input-focused-border);
+    border-radius: 10px;
+
+    &:hover {
+      background: var(--main-color);
+    }
+  }
+
   .grafico-calendario {
+    /* Forzamos al gráfico a respetar el ancho mínimo para que active el scroll */
     width: 100%;
     height: 220px;
+
+    @media (max-width: 768px) {
+      min-width: 800px;
+      height: 250px;
+    }
   }
 }
