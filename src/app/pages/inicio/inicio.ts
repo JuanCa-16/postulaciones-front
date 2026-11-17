@@ -7,7 +7,6 @@ import { Loading } from '../../components/loading/loading';
 import { Router, RouterLink } from '@angular/router';
 import { IconGear } from '../../components/icons/gear.component';
 import { IconPlus } from '../../components/icons/plus.component';
-import { IconRow } from '../../components/icons/row.component';
 import { ToastrService } from 'ngx-toastr';
 import { ChipGroup } from '../../components/chip-group/chip-group';
 import { Chip } from '../../components/inputs/chip/chip';
@@ -23,6 +22,9 @@ import { IconMoon } from '../../components/icons/icon-moon.component';
 import { BgStatusService } from '../../services/bg-status-service';
 import { ModalContenedor } from '../../components/modal-contenedor/modal-contenedor';
 import { IconBuildingData } from '../../components/icons/icon-data.component';
+import { IconFilter } from '../../components/icons/filter.component';
+import { IconPing } from '../../components/icons/icon-ping.component';
+import { IconExit } from '../../components/icons/icon-exit.component';
 
 export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
 
@@ -34,7 +36,6 @@ export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
     RouterLink,
     IconGear,
     IconPlus,
-    IconRow,
     ChipGroup,
     Chip,
     IconTrash,
@@ -42,8 +43,11 @@ export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
     IconSun,
     IconMoon,
     ModalContenedor,
-    IconBuildingData
-],
+    IconBuildingData,
+    IconFilter,
+    IconPing,
+    IconExit,
+  ],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',
 })
