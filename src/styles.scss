@@ -26,7 +26,8 @@
   --main-color: var(--color);
   --background: #ffffff;
   --background-transparent: rgba(255, 255, 255, 0.4);
-  --shadow: rgba(0, 0, 0, 0.07);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.4); // Brillo superior claro
   --danger: #ff0000;
   --text-primary: #0f172a;
   --text-secondary: #64748b;
@@ -39,7 +40,8 @@
   --main-color: color-mix(in srgb, var(--color) 75%, white 28%);
   --background: #080d1c;
   --background-transparent: rgba(8, 13, 28, 0.4);
-  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.08); // Brillo superior sutil para modo oscuro
   --danger: #ef5350;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
@@ -162,6 +164,19 @@ body {
   transition: all 0.2s ease;
   user-select: none;
   transform-origin: center center;
+  border-color: var(--input-focused-border);
+  background: var(--input-background);
+  color: var(--text-secondary);
+
+  &.btn-primary {
+    background: var(--main-color);
+    color: var(--background);
+    border-color: var(--input-focused-border);
+
+    &:hover {
+      scale: 0.92;
+    }
+  }
 
   &.btn-arrow {
     transform: scaleX(-1);
@@ -235,5 +250,71 @@ body {
 
   &:active {
     transform: scale(0.95);
+  }
+}
+
+.btn-con-badge {
+  position: relative; // Vital para que el número flotante se posicione respecto a este botón
+
+  .badge-flotante {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+
+    // Tamaños y diseño circular
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--main-color); // O puedes usar var(--main-color) según prefieras
+    color: #ffffff;
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: 50%;
+
+    // Un pequeño borde para que resalte si se cruza con los bordes del botón
+    border: 2px solid var(--background);
+    box-shadow: 0 2px 4px var(--shadow);
+
+    pointer-events: none; // Evita interferir con clics
+  }
+}
+
+.btn-con-badge {
+  position: relative; // Vital para que el número flotante se posicione respecto a este botón
+
+  .badge-flotante {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+
+    // Tamaños y diseño circular
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--main-color); // O puedes usar var(--main-color) según prefieras
+    color: var(--background);
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: 50%;
+
+    // Un pequeño borde para que resalte si se cruza con los bordes del botón
+    border: 2px solid var(--background);
+    box-shadow: 0 2px 4px var(--shadow);
+
+    pointer-events: none; // Evita interferir con clics
   }
 }

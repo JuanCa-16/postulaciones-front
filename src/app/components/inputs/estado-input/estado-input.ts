@@ -5,13 +5,12 @@ import { EstadoInputEvent } from '../../../interfaces/estado.interface';
 import { IconTrash } from '../../icons/trash.component';
 import { Chip } from '../chip/chip';
 import { IconCheck } from '../../icons/check.component';
-import { Modal } from "../../modal/modal";
-import { InputField } from '../input-field/input-field';
+import { Modal } from '../../modal/modal';
 
 @Component({
   selector: 'app-estado-input',
   standalone: true,
-  imports: [Tag, FormsModule, IconTrash, Chip, IconCheck, Modal, InputField],
+  imports: [Tag, FormsModule, IconTrash, Chip, IconCheck, Modal],
   templateUrl: './estado-input.html',
   styleUrl: './estado-input.scss',
 })

@@ -7,11 +7,13 @@ import { Component } from '@angular/core';
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
+      height="1rem"
+      width="1rem"
       fill="currentColor"
     >
-      <path d="M2,21V19H22v2H2Zm1-3V11H6v7H3Zm5,0V6h3V18H8Zm5,0V9h3v9H13Zm5,0V3h3V18H18Z" />
+      <path
+        d="M5,21q-0.83,0-1.41-0.59T3,19V5Q3,4.17 3.59,3.59T5,3H19q0.83,0 1.41,0.59T21,5V19q0,0.82-0.59,1.41T19,21H5Zm0-2h6V5H5V19Zm8,0h6V12H13v7Zm0-9h6V5H13v5Z"
+      />
     </svg>
   `,
   styles: [

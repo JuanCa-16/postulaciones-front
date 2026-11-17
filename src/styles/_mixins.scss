@@ -8,15 +8,10 @@
   transition: all 0.2s ease-in-out;
 }
 
-@mixin glass-card(
-  $blur: 25px,
-  $border-opacity: 0.6,
-  $shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07),
-  $inset-light: 0 0 0 1px var(--input-background) inset
-) {
+@mixin glass-card($blur: 25px, $border-opacity: 0.6) {
   background-color: color-mix(in srgb, var(--background) 50%, transparent);
   border: 1px solid rgba(var(--input-focused-border), $border-opacity);
   backdrop-filter: blur($blur);
   -webkit-backdrop-filter: blur($blur);
-  box-shadow: $shadow, $inset-light;
+  box-shadow: var(--shadow), var(--shadow-inset);
 }
