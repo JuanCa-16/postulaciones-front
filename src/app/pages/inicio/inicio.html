@@ -129,11 +129,25 @@
           (alternar)="toggleTarjeta(postulacion.id)"
         ></app-job-card>
       } @empty {
-        <p>No hay postulaciones que coincidan con los filtros seleccionados.</p>
+        <app-sin-registros
+          title="Sin resultados en la búsqueda"
+          description="No encontramos ninguna postulación que coincida con los filtros aplicados."
+        >
+          <button type="button" class="btn btn-secondary" (click)="limpiarFiltros()">
+            Limpiar filtros
+          </button></app-sin-registros
+        >
       }
     </div>
   } @else {
-    <p>No tienes postulaciones registradas.</p>
+    <app-sin-registros
+      title="Comienza tu camino profesional"
+      description="Aún no tienes ninguna postulación registrada. ¡Agrega tu primera oferta!"
+    >
+      <button type="button" class="btn btn-primary" routerLink="/agregar">
+        + Nueva postulación
+      </button>
+    </app-sin-registros>
   }
 </div>
 

@@ -25,6 +25,7 @@ import { IconBuildingData } from '../../components/icons/icon-data.component';
 import { IconFilter } from '../../components/icons/filter.component';
 import { IconPing } from '../../components/icons/icon-ping.component';
 import { IconExit } from '../../components/icons/icon-exit.component';
+import { SinRegistros } from '../../components/sin-registros/sin-registros';
 
 export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
 
@@ -47,6 +48,7 @@ export type CriterioBusqueda = 'TODO' | 'OFERTA' | 'EMPRESA' | 'PAGINA';
     IconFilter,
     IconPing,
     IconExit,
+    SinRegistros,
   ],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss',

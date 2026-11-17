@@ -1,0 +1,95 @@
+@use '../../../styles/mixins' as *;
+
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 100%;
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 40px 24px;
+  border-radius: 20px;
+
+  // Usamos tu mixin de glassmorphism para mantener la estética de la app
+  @include glass-card(20px, 0.5);
+
+  // Animación de entrada suave
+  animation: fadeIn 0.4s ease-in-out;
+
+  .vector-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .empty-vector {
+      width: 130px;
+      height: 130px;
+
+      // Pequeña animación sutil en la lupa para darle dinamismo
+      .lupa-group {
+        animation: floatLupa 3s ease-in-out infinite;
+      }
+    }
+  }
+
+  .content {
+    margin-bottom: 24px;
+
+    .title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0;
+      padding: 0 10px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .btn {
+      flex: 1;
+      min-width: 140px;
+    }
+  }
+}
+
+// Animaciones decorativas fluidas
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatLupa {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(4px, -4px);
+  }
+}
